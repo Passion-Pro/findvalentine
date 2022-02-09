@@ -1,0 +1,60 @@
+.Loginheader{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100vw;
+    position:sticky;
+    top: 0;
+    z-index: 200;
+    padding:0.25vh 0;
+    height: 8vh;
+    overflow:hidden;
+}
+.Loginheader_In{
+    display: flex;
+    flex: 1;
+    height: 10vh;
+    justify-content: space-between;
+    background-color:#eb1958;
+    /* align-items: center; */
+    padding: 0px 12px 0 12px;
+    max-width: 1200px;
+    width: 100vw;
+    align-items: center;
+}
+.Loginheader__Logo{
+    display: flex;
+    flex: 0.5;
+    font-size: medium;
+    font-weight: 600;
+    padding-left: 6px;
+    color: white;
+}
+.Loginheader__Icons{
+    display: flex;
+    align-items: center;
+}
+.Loginheader__home__Icon{
+    display: flex;
+    width: 130px;
+}
+.Loginheader__home__Icon>button{
+    width: 100%;
+    padding:6px;
+    border: none;
+    border-radius: 20px;
+    margin: 0 24px 0 0;
+}
+.Loginheader_profileName{
+    display: flex;
+    font-size: small;
+}
+@media(max-width:800px){
+    .Loginheader__home__Icon>button{
+        width: 100%;
+        padding:6px;
+        border: none;
+        border-radius: 20px;
+        margin: 0 12px 0 0;
+    }
+}

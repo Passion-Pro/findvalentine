@@ -1,0 +1,94 @@
+.showHeadDiv{
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    top: 15vh;
+    right: 10vw;
+    bottom: 0; 
+    background-color: white; 
+    min-width: 15vw;
+    height: fit-content;
+    /* width: fit-content; */
+    padding: 4px 12px 4px 12px;
+    margin: 12px;
+    margin-top: 2px;
+    margin-right: -10px;
+    z-index: 11;
+    width: fit-content;
+    max-width: 200px;
+    max-height: 50vh;
+    overflow:scroll;
+    border-radius: 8px;
+    color: rgb(83, 92, 100);
+    border: 1px solid lightslategray;
+}
+.showHeadDiv__ROW{
+    display: flex;
+    flex-direction: column;
+    margin: 2px 0 2px;
+    margin: 2px 0 2px;
+    cursor: pointer;
+}
+.showHeadDiv::-webkit-scrollbar{
+    display: none;
+}
+.followingCardShow{
+    visibility: hidden;
+}
+/* @media(max-width:800px){ */
+    .HeaderSecond_Out{
+        display: flex;
+        position: sticky;
+        top: 8.5vh;
+        align-items: center;
+        justify-content: center;
+        background-color: white;
+        z-index: 11;
+        width: 100vw;
+        /* border-bottom: 1px solid lightgray; */
+    }
+    .HeaderSecond{
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 2vw;
+        background-color: white;
+        z-index: 11;
+        width: 96vw;
+        max-width: 1200px;
+        border-bottom: 1px solid lightgray;
+    }
+    .followingCard{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 2px 12px;
+        border: 1px solid rgb(72, 72, 243);
+        margin: 6px 2px;
+        font-size: small;
+        border-radius: 12px;
+        cursor: pointer;
+    }
+    .followingCard__active{
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 2px 12px;
+        border: 1px solid rgb(72, 72, 243);
+        margin: 6px 2px;
+        font-size: small;
+        border-radius: 12px;
+        background-color: rgb(72, 72, 243);
+        box-shadow: 0 0 10px -2px rgb(8, 8, 192);
+        color: white;
+        font-weight: 600;
+    }
+    .HeaderSecond__Div{
+        display: flex;
+    }
+    @media(max-width:800px){
+        .followingCardShow{
+            display: flex;
+        }
+    }
