@@ -91,4 +91,15 @@
         .followingCardShow{
             display: flex;
         }
+        .followingCard{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2px 6px;
+            border: 1px solid rgb(72, 72, 243);
+            margin: 6px 2px;
+            font-size: small;
+            border-radius: 12px;
+            cursor: pointer;
+        }
     }

@@ -1,11 +1,7 @@
 import React, { useState } from 'react';
 import './HeaderSecond.css';
-import ArrowDropDownRoundedIcon from '@mui/icons-material/ArrowDropDownRounded';
-import DoubleArrowRoundedIcon from '@mui/icons-material/DoubleArrowRounded';
-import Divider from '@mui/material/Divider';
 import { useHistory } from 'react-router-dom';
 import { useStateValue } from '../../StateProvider';
-import { actionTypes } from '../../reducer';
 
 function HeaderSecond() {
     const [{ user, courseDiv, showExpandGroup, showMoreoption }, dispatch] = useStateValue();
