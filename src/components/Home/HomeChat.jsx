@@ -2,14 +2,14 @@ import React from 'react'
 import Header from '../Header/Header'
 import HeaderSecond from '../Header/HeaderSecond'
 
-function Home() {
+function HomeChat() {
   return (
     <div>
     <Header/>
     <HeaderSecond />
-    
+    <div>HomeChat</div>
     </div>
   )
 }
 
-export default Home
+export default HomeChat

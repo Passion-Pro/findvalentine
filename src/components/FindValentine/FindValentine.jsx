@@ -2,7 +2,7 @@ import React from 'react'
 import Header from '../Header/Header'
 import HeaderSecond from '../Header/HeaderSecond'
 
-function Home() {
+function FindValentine() {
   return (
     <div>
     <Header/>
@@ -12,4 +12,4 @@ function Home() {
   )
 }
 
-export default Home
+export default FindValentine;

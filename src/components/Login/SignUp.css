@@ -29,7 +29,7 @@
     display:  flex;
     max-width : 400px;
     width: 95%;
-    height : 250px;
+    object-fit: contain;
     border-radius: 4px; 
 }
 .gender_div{
