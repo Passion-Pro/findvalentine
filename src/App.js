@@ -9,6 +9,9 @@ import { actionTypes } from './reducer';
 import { useStateValue } from './StateProvider';
 import { useEffect } from 'react';
 import ListPage from './components/ListPage/ListPage';
+import HomePreferedBy from './components/Home/HomePreferedBy';
+import HomeChat from './components/Home/HomeChat';
+import FindValentine from './components/FindValentine/FindValentine';
 
 function App() {
   const[{user} , dispatch] = useStateValue();
@@ -24,12 +27,41 @@ function App() {
     });
   }, []);
 
+  useEffect(() => {
+    if (user?.uid) {
+      db.collection("users")
+        .doc(user?.uid)
+        .onSnapshot((snapshot) => {
+          dispatch({
+            type: actionTypes.SET_USERINFO,
+            userInfo: snapshot.data(),
+          })
+        }
+        );
+    }
+  }, [user?.uid]);
+
   return (
     <div className="App">
       <Router>
         <Switch>
-          <Route path="/searchPage">
-            {user?.email ? <SignUp /> : <Login />}
+          <Route path="/signup">
+            {<SignUp /> }
+          </Route>
+          <Route path="/signin">
+            {<Login />}
+          </Route>
+          <Route path="/homepreferedBy">
+            {user?.email ? <HomePreferedBy /> : <Login />}
+          </Route>
+          <Route path="/findvalentine">
+            {user?.email ? <FindValentine /> : <Login />}
+          </Route>
+          <Route path="/public">
+            {user?.email ? <Public /> : <Login />}
+          </Route>
+          <Route path="/chat">
+            {user?.email ? <HomeChat /> : <Login />}
           </Route>
           <Route path="/preferences">
             <ListPage/>
@@ -38,7 +70,7 @@ function App() {
             <Public/>
           </Route>
           <Route path="/">
-            {user?.email ? <Home /> : <Public />}
+            {user?.email ? <Home /> : <Login />}
           </Route>
         </Switch>
       </Router>
