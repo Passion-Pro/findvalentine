@@ -42,7 +42,9 @@ min-width : 400px;
 @media(max-width:500px) {
     width : 90%;
     min-width : 90%;
+    margin-left : 0 !important;
 }
+
 
 
 

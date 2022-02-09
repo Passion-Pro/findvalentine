@@ -64,14 +64,26 @@ function SignUp() {
                                 (error) => console.log(error),
                                 async () => {
                                     await upload.snapshot.ref.getDownloadURL().then((url) => {
-                                        db.collection('users').doc(auth.user.uid).set({
-                                            name: name,
-                                            email: email,
-                                            password: password,
-                                            profilePhotoUrl: url,
-                                            gender: gender,
-                                            imageId: id,
-                                        })
+                                        if(gender === 'male'){
+                                            db.collection('boys').doc(auth.user.uid).set({
+                                                name: name,
+                                                email: email,
+                                                password: password,
+                                                profilePhotoUrl: url,
+                                                gender: gender,
+                                                imageId: id,
+                                            })
+                                        }
+                                        else{
+                                            db.collection('girls').doc(auth.user.uid).set({
+                                                name: name,
+                                                email: email,
+                                                password: password,
+                                                profilePhotoUrl: url,
+                                                gender: gender,
+                                                imageId: id,
+                                            })
+                                        }
                                     })
                                         .then(() => {
                                             history.push('/')

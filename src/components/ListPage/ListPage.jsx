@@ -8,26 +8,6 @@ function ListPage() {
 
   return (
     <Container>
-      <div className="preferences_buttons">
-        <button
-         style = {{
-             backgroundColor : preference === "Preferences"?'black' : 'white',
-             color : preference === "Preferences"?'white' : 'black'
-         }}
-         onClick = {() => [
-             setPreference("Preferences")
-         ]}
-        >Preferences</button>
-        <button
-         style = {{
-            backgroundColor : preference === "Preffered By"?'black' : 'white',
-            color : preference === "Preffered By"?'white' : 'black'
-        }}
-        onClick = {() => [
-            setPreference("Preffered By")
-        ]}
-        >Preffered By</button>
-      </div>
       <div className="list">
         <Name/>
         <Name/>
