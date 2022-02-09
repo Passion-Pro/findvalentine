@@ -8,6 +8,7 @@ import db ,  {auth} from './firebase';
 import { actionTypes } from './reducer';
 import { useStateValue } from './StateProvider';
 import { useEffect } from 'react';
+import ListPage from './components/ListPage/ListPage';
 import HomePreferedBy from './components/Home/HomePreferedBy';
 import HomeChat from './components/Home/HomeChat';
 import FindValentine from './components/FindValentine/FindValentine';
@@ -50,6 +51,7 @@ function App() {
           <Route path="/signin">
             {<Login />}
           </Route>
+          
           <Route path="/homepreferedBy">
             {user?.email ? <HomePreferedBy /> : <Login />}
           </Route>
@@ -61,6 +63,9 @@ function App() {
           </Route>
           <Route path="/chat">
             {user?.email ? <HomeChat /> : <Login />}
+          </Route>
+          <Route path="/public">
+            <Public/>
           </Route>
           <Route path="/">
             {user?.email ? <Home /> : <Login />}
