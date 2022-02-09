@@ -8,6 +8,7 @@ import db ,  {auth} from './firebase';
 import { actionTypes } from './reducer';
 import { useStateValue } from './StateProvider';
 import { useEffect } from 'react';
+import ListPage from './components/ListPage/ListPage';
 
 function App() {
   const[{user} , dispatch] = useStateValue();
@@ -29,6 +30,12 @@ function App() {
         <Switch>
           <Route path="/searchPage">
             {user?.email ? <SignUp /> : <Login />}
+          </Route>
+          <Route path="/preferences">
+            <ListPage/>
+          </Route>
+          <Route path="/public">
+            <Public/>
           </Route>
           <Route path="/">
             {user?.email ? <Home /> : <Public />}

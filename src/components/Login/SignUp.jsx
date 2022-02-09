@@ -11,7 +11,6 @@ import {useHistory} from "react-router-dom"
 
 function SignUp() {
     const[{} , dispatch] = useStateValue();
-    
     const [image, setImage] = useState(null);
     const[gender , setGender] = useState('');
     const[name , setName] = useState('');
@@ -20,7 +19,7 @@ function SignUp() {
     const history=useHistory();
     
 
-
+    
     const selectImage = (e) => {
         if (e.target.files[0]) {
             setImage(e.target.files[0]);
