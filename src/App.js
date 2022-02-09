@@ -29,15 +29,22 @@ function App() {
 
   useEffect(() => {
     if (user?.uid) {
-      db.collection("users")
+      db.collection("boys")
         .doc(user?.uid)
         .onSnapshot((snapshot) => {
           dispatch({
             type: actionTypes.SET_USERINFO,
             userInfo: snapshot.data(),
           })
-        }
-        );
+        });
+      db.collection("girls")
+        .doc(user?.uid)
+        .onSnapshot((snapshot) => {
+          dispatch({
+            type: actionTypes.SET_USERINFO,
+            userInfo: snapshot.data(),
+          })
+        });
     }
   }, [user?.uid]);
 
