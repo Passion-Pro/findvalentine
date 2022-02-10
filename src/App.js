@@ -62,7 +62,7 @@ function App() {
           <Route path="/signin">
             {<Login />}
           </Route>
-          
+
           <Route path="/homepreferedBy">
             {user?.email ? <HomePreferedBy /> : <Login />}
           </Route>
@@ -72,7 +72,10 @@ function App() {
           <Route path="/public">
             {user?.email ? <Public /> : <Login />}
           </Route>
-          <Route path="/chat">
+          {/* <Route path="/chat">
+            {user?.email ? <HomeChat /> : <Login />}
+          </Route> */}
+          <Route path="/chat/:chatId">
             {user?.email ? <HomeChat /> : <Login />}
           </Route>
           <Route path="/public">
