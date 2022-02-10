@@ -3,27 +3,27 @@ import styled from "styled-components";
 import Avatar from "@mui/material/Avatar";
 
 
-function Name() {
+function Name({data}) {
   return (
     <Container>
-        <Avatar className="student_avatar"
-         src = "https://cdn.britannica.com/66/188766-050-38F1436A/Mark-Zuckerberg-2010.jpg"
-        />
-        <p className = "name">Ronak</p>
-        <p style = {{
-            textAlign : "right",
-            width : "100%",
-        }}
-         className = "rate"
+      <Avatar className="student_avatar"
+        src={data?.data?.profilePhotoUrl}
+      />
+      <p className="name">{data?.data?.name}</p>
+      <p style={{
+        textAlign: "right",
+        width: "100%",
+      }}
+        className="rate"
+      >
+        <span
+          style={{
+            width: "fit-content"
+          }}
         >
-            <span
-             style = {{
-                 width : "fit-content"
-             }}
-            >
-            Your Valentine
-            </span>
-        </p>
+         {data?.data?.rate}
+        </span>
+      </p>
     </Container>
   )
 }

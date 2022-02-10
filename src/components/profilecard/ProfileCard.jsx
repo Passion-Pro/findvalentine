@@ -23,51 +23,62 @@ function ProfileCard({ data }) {
   const yourValentine = () => {
     if (userInfo?.gender) {
       db.collection(userInfo?.gender == 'male' ? 'boys' : 'girls').doc(user?.uid).collection("Preference").add({
-        email: email,
+        email: data?.data?.email,
         gender: data?.data?.gender,
         name: data?.data?.name,
-        rate: "Your Valentine",
+        rate: "My Valentine",
+        rateN:7,
         profilePhotoUrl: data?.data?.profilePhotoUrl
       }).then(() => {
         db.collection(data?.data?.gender == 'male' ? 'boys' : 'girls').doc(data?.data?.uid).collection("Preferenceby").add({
-          email: email,
+          email: data?.data?.email,
           gender: data?.data?.gender,
           name: data?.data?.name,
-          rate: "Your Valentine",
+          rate: "My Valentine",
+          rateN:7,
           profilePhotoUrl: data?.data?.profilePhotoUrl
         })
       })
-        .catch(() => {
+        .catch((error) => {
           alert('Error', error.message)
+          setRatePopUp(false)
         })
       if (userInfo?.gender === 'male') {
         db.collection('boys').doc(user.uid).update({
           timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+        }).then(()=>{
+          setRatePopUp(false)
         })
       }
       else {
         db.collection('girls').doc(user.uid).update({
           timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+        }).then(()=>{
+          setRatePopUp(false)
         })
       }
 
     } else {
       alert('Something went wrong!')
+      setRatePopUp(false)
+      
     }
   }
   const takeChance = () => {
     if (userInfo?.gender) {
       db.collection(userInfo?.gender == 'male' ? 'boys' : 'girls').doc(user?.uid).collection("Preference").add({
-        email: email,
+        email: data?.data?.email,
         gender: data?.data?.gender,
         name: data?.data?.name,
         rate: "Take a chance",
+        rateN:6,
         profilePhotoUrl: data?.data?.profilePhotoUrl
       }).then(() => {
         db.collection(data?.data?.gender == 'male' ? 'boys' : 'girls').doc(data?.data?.uid).collection("Preferenceby").add({
-          email: email,
+          email: data?.data?.email,
           gender: data?.data?.gender,
           name: data?.data?.name,
+          rateN:6,
           rate: "Take a chance",
           profilePhotoUrl: data?.data?.profilePhotoUrl
         })
@@ -75,28 +86,35 @@ function ProfileCard({ data }) {
       if (userInfo?.gender === 'male') {
         db.collection('boys').doc(user.uid).update({
           timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+        }).then(()=>{
+          setRatePopUp(false)
         })
       }
       else {
         db.collection('girls').doc(user.uid).update({
           timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+        }).then(()=>{
+          setRatePopUp(false)
         })
       }
     } else {
       alert('Something went wrong!')
+      setRatePopUp(false)
     }
   }
   const bestfriend = () => {
     if (userInfo?.gender) {
       db.collection(userInfo?.gender == 'male' ? 'boys' : 'girls').doc(user?.uid).collection("Preference").add({
-        email: email,
+        email: data?.data?.email,
         gender: data?.data?.gender,
         name: data?.data?.name,
         rate: "Take a chance",
+        rateN:5,
         profilePhotoUrl: data?.data?.profilePhotoUrl
       }).then(() => {
         db.collection(data?.data?.gender == 'male' ? 'boys' : 'girls').doc(data?.data?.uid).collection("Preferenceby").add({
-          email: email,
+          email: data?.data?.email,
+          rateN:5,
           gender: data?.data?.gender,
           name: data?.data?.name,
           rate: "Take a chance",
@@ -106,28 +124,35 @@ function ProfileCard({ data }) {
       if (userInfo?.gender === 'male') {
         db.collection('boys').doc(user.uid).update({
           timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+        }).then(()=>{
+          setRatePopUp(false)
         })
       }
       else {
         db.collection('girls').doc(user.uid).update({
           timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+        }).then(()=>{
+          setRatePopUp(false)
         })
       }
     } else {
       alert('Something went wrong!')
+      setRatePopUp(false)
     }
   }
   const friend = () => {
     if (userInfo?.gender) {
       db.collection(userInfo?.gender == 'male' ? 'boys' : 'girls').doc(user?.uid).collection("Preference").add({
-        email: email,
+        email: data?.data?.email,
         gender: data?.data?.gender,
         name: data?.data?.name,
         rate: "Friend",
+        rateN:4,
         profilePhotoUrl: data?.data?.profilePhotoUrl
       }).then(() => {
         db.collection(data?.data?.gender == 'male' ? 'boys' : 'girls').doc(data?.data?.uid).collection("Preferenceby").add({
-          email: email,
+          email:data?.data?.email,
+          rateN:4,
           gender: data?.data?.gender,
           name: data?.data?.name,
           rate: "Friend",
@@ -137,29 +162,36 @@ function ProfileCard({ data }) {
       if (userInfo?.gender === 'male') {
         db.collection('boys').doc(user.uid).update({
           timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+        }).then(()=>{
+          setRatePopUp(false)
         })
       }
       else {
         db.collection('girls').doc(user.uid).update({
           timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+        }).then(()=>{
+          setRatePopUp(false)
         })
       }
     } else {
       alert('Something went wrong!')
+      setRatePopUp(false)
     }
   }
   const meraBahi = () => {
     if (userInfo?.gender) {
       db.collection(userInfo?.gender == 'male' ? 'boys' : 'girls').doc(user?.uid).collection("Preference").add({
-        email: email,
+        email: data?.data?.email,
         gender: data?.data?.gender,
+        rateN:3,
         name: data?.data?.name,
         rate: data?.data?.gender ? "Mera Bhai" : "Meri Bahen",
         profilePhotoUrl: data?.data?.profilePhotoUrl
       }).then(() => {
         db.collection(data?.data?.gender == 'male' ? 'boys' : 'girls').doc(data?.data?.uid).collection("Preferenceby").add({
-          email: email,
+          email: data?.data?.email,
           gender: data?.data?.gender,
+          rateN:3,
           name: data?.data?.name,
           rate: data?.data?.gender ? "Mera Bhai" : "Meri Bahen",
           profilePhotoUrl: data?.data?.profilePhotoUrl
@@ -168,30 +200,37 @@ function ProfileCard({ data }) {
       if (userInfo?.gender === 'male') {
         db.collection('boys').doc(user.uid).update({
           timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+        }).then(()=>{
+          setRatePopUp(false)
         })
       }
       else {
         db.collection('girls').doc(user.uid).update({
           timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+        }).then(()=>{
+          setRatePopUp(false)
         })
       }
     } else {
       alert('Something went wrong!')
+      setRatePopUp(false)
     }
   }
   const notInterested = () => {
     if (userInfo?.gender) {
       db.collection(userInfo?.gender == 'male' ? 'boys' : 'girls').doc(user?.uid).collection("Preference").add({
-        email: email,
+        email: data?.data?.email,
         gender: data?.data?.gender,
         name: data?.data?.name,
         rate: "Not Interested",
+        rateN:2,
         profilePhotoUrl: data?.data?.profilePhotoUrl
       }).then(() => {
         db.collection(data?.data?.gender == 'male' ? 'boys' : 'girls').doc(data?.data?.uid).collection("Preferenceby").add({
-          email: email,
+          email: data?.data?.email,
           gender: data?.data?.gender,
           name: data?.data?.name,
+          rateN:2,
           rate: "Not Interested",
           profilePhotoUrl: data?.data?.profilePhotoUrl
         })
@@ -199,11 +238,15 @@ function ProfileCard({ data }) {
       if (userInfo?.gender === 'male') {
         db.collection('boys').doc(user.uid).update({
           timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+        }).then(()=>{
+          setRatePopUp(false)
         })
       }
       else {
         db.collection('girls').doc(user.uid).update({
           timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+        }).then(()=>{
+          setRatePopUp(false)
         })
       }
     } else {
@@ -211,7 +254,24 @@ function ProfileCard({ data }) {
     }
   }
   const skip = () => {
-
+   if(userInfo?.gender){
+    if (userInfo?.gender === 'male') {
+      db.collection('boys').doc(user.uid).update({
+        timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+      }).then(()=>{
+        setRatePopUp(false)
+      })
+    }
+    else {
+      db.collection('girls').doc(user.uid).update({
+        timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+      }).then(()=>{
+        setRatePopUp(false)
+      })
+    }
+   }else{
+     alert('Something went wrong!')
+   }
   }
   return (
     <>
@@ -221,7 +281,7 @@ function ProfileCard({ data }) {
           <div className="passionPopup">
             <div className="passion_list">
               <div className="Card_popUp__list_V" onClick={yourValentine}>
-                Your Valentine
+                My Valentine
               </div>
               <div className="Card_popUp__list_TC" onClick={takeChance}>
                 Take a chance
@@ -242,13 +302,6 @@ function ProfileCard({ data }) {
                 Skip
               </div>
             </div>
-            {/* <div className="add_passion"> */}
-            {/* <p>Add your passion</p> */}
-            {/* <input type="text" placeholder = "Enter your passion" value = {input} onChange={e => setInput(e.target.value)} /> */}
-            {/* <div className="add_passion_button"> */}
-            {/* <button onClick = {add_passion}>Add</button> */}
-            {/* </div> */}
-            {/* </div> */}
           </div>
         </Container>
       }

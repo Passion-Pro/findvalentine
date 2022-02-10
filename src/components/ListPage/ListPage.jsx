@@ -3,24 +3,19 @@ import styled from "styled-components";
 import Name from './Name';
 
 
-function ListPage() {
+function ListPage({data}) {
   const[preference , setPreference] = useState("Preferences");
 
   return (
     <Container>
       <div className="list">
-        <Name/>
-        <Name/>
-        <Name/>
+        <Name data={data}/>
     </div>    
     </Container>
   )
 };
 
 const Container = styled.div`
-/* height : 100vh;
-width : 100vw; */
-
 .list{
     display : flex;
     flex-direction : column;

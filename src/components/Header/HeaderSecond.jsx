@@ -15,11 +15,6 @@ function HeaderSecond() {
             <div className='HeaderSecond_Out'>
                 <div className='HeaderSecond'>
                     <div></div>
-                    {/* <div className="followingCard "> */}
-                    {/* <div className="followingCardShow">
-                        Stories <ArrowDropDownRoundedIcon style={{ fontSize: 18 }} />
-                    </div> */}
-                    {/* </div> */}
                     <div className="HeaderSecond__Div">
                         <div onClick={() => {
                             history.push('/')
@@ -33,12 +28,13 @@ function HeaderSecond() {
                         }} className={window.location.pathname == '/homepreferedBy'  ? "followingCard__active" : "followingCard"}>
                             Prefered by
                         </div>
-                        <div onClick={() => {
+                        {/* public */}
+                        {/* <div onClick={() => {
                             history.push('/public')
                             setPathName('/public')
                         }} className={window.location.pathname == '/public' ? "followingCard__active" : "followingCard"}>
                             Public
-                        </div>
+                        </div> */}
                         <div onClick={() => {
                             history.push('/chat')
                             setPathName('/chat')

@@ -6,7 +6,7 @@ import { useStateValue } from "../../StateProvider"
 import { actionTypes } from '../../reducer';
 import { v4 as uuid } from "uuid"
 import { useHistory } from "react-router-dom"
-
+import firebase from 'firebase';
 
 function SignUp() {
     const [{ }, dispatch] = useStateValue();
@@ -73,6 +73,7 @@ function SignUp() {
                                                 gender: gender,
                                                 imageId: id,
                                                 timestamp:firebase.firestore.FieldValue.serverTimestamp(),
+                                                uid:auth.user.uid
                                             })
                                         }
                                         else{
@@ -84,6 +85,7 @@ function SignUp() {
                                                 gender: gender,
                                                 imageId: id,
                                                 timestamp:firebase.firestore.FieldValue.serverTimestamp(),
+                                                uid:auth.user.uid
                                             })
                                         }
                                     })

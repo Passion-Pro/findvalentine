@@ -17,7 +17,7 @@ function Header() {
                     </div>
 
                     <div className="Loginheader__Icons">
-                        <div className="Loginheader__home__Icon">
+                        <div className={window.location.pathname=='/findvalentine'?"Loginheader__home__IconActive":"Loginheader__home__Icon"}>
                             <button onClick={() => history.push('/findvalentine')}>Find Valentine</button>
                         </div>
 

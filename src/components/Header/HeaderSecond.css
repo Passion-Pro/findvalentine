@@ -35,11 +35,10 @@
 .followingCardShow{
     visibility: hidden;
 }
-/* @media(max-width:800px){ */
-    .HeaderSecond_Out{
+.HeaderSecond_Out{
         display: flex;
         position: sticky;
-        top: 8.5vh;
+        top: 8.60vh !important;
         align-items: center;
         justify-content: center;
         background-color: white;
@@ -47,7 +46,7 @@
         width: 100vw;
         /* border-bottom: 1px solid lightgray; */
     }
-    .HeaderSecond{
+.HeaderSecond{
         display: flex;
         align-items: center;
         justify-content: space-between;
@@ -58,7 +57,7 @@
         max-width: 1200px;
         border-bottom: 1px solid lightgray;
     }
-    .followingCard{
+ .followingCard{
         display: flex;
         align-items: center;
         justify-content: center;

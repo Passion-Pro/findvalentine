@@ -8,12 +8,15 @@ import ArrowForwardRoundedIcon from '@mui/icons-material/ArrowForwardRounded';
 import { useStateValue } from '../../StateProvider';
 
 function FindValentine() {
-    const [{ userInfo, user}] = useStateValue();
+    const [{ userInfo, user }] = useStateValue();
     const [data, setData] = useState([]);
+    const [inputSearch, setInputSearch] = useState('');
+    const [emailSearch, setEmailSearch] = useState('');
 
     useEffect(() => {
         if (userInfo?.gender)
             db.collection(userInfo?.gender === 'male' ? 'girls' : 'boys')
+                .orderBy('timestamp', 'desc')
                 .onSnapshot((snapshot) => {
                     setData(
                         snapshot.docs.map((doc) => ({
@@ -42,11 +45,25 @@ function FindValentine() {
                     <div className="header__ProfileName">
                         <div className='header__ProfileName__Head'>
                             Find
+                            <div>
+                                <input placeholder='Search by name' type="text" onChange={e => setInputSearch(e.target.value)} />
+                                <input placeholder='Search by email' type="text" onChange={e => setEmailSearch(e.target.value)} />
+                            </div>
                         </div>
                         <div className="recommendPeople" id='box1'>
-                            {data.map((data) => (
+                            {/* {data.map((data) => (
                                 <ProfileCard data={data} />
-                            ))}
+                            ))} */}
+                            { emailSearch=='' ? data && data.filter(item => {return item?.data?.name.toLowerCase().includes(inputSearch.toLowerCase())
+                            }).map((data) => (
+                                <ProfileCard data={data} />
+                            )):
+                            data && data.filter(item => {return item?.data?.email.toLowerCase().includes(emailSearch.toLowerCase())
+                            }).map((data) => (
+                                <ProfileCard data={data} />
+                            ))
+                            
+                            }
                             <div className="Arrow__showrecommendProfile" onClick={funct1}>
                                 <ArrowForwardRoundedIcon className='Arrow__showrecommendInProfile' />
                             </div>
