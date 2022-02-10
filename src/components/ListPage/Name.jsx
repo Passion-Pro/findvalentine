@@ -10,20 +10,9 @@ function Name({data}) {
         src={data?.data?.profilePhotoUrl}
       />
       <p className="name">{data?.data?.name}</p>
-      <p style={{
-        textAlign: "right",
-        width: "100%",
-      }}
-        className="rate"
-      >
-        <span
-          style={{
-            width: "fit-content"
-          }}
-        >
-         {data?.data?.rate}
-        </span>
-      </p>
+      <div className="preference_div">
+      <p className = "preference">{data?.data?.rate}</p>
+      </div>
     </Container>
   )
 }
@@ -57,15 +46,25 @@ min-width : 400px;
    margin-left : 20px;
 }
 
-.rate{
-  span{
-    border : 0;
-    padding : 10px;
-    border-radius : 20px;
-    background-color : #e02985;
-    color : white;
+
+.preference_div{
+  display : flex;
+  justify-content : flex-end;
+  width : 100%;
+  p{
+    background-color : #f1178f;
+  width : 170px;
+  text-align : center;
+  color : white;
+  padding-top : 7px;
+  padding-bottom : 7px;
+  border-radius : 20px;
+  margin-bottom : auto;
+  margin-top : auto;
+
   }
 }
+
 `;
 
 export default Name
