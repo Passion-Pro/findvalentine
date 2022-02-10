@@ -624,7 +624,7 @@ function ProfileCard({ data }) {
                   <button onClick={() => {
                     setRatePopUp(true);
                   }}>
-                    Choice
+                    Preference
                   </button>
                   <button>
                     Chat

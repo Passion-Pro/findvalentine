@@ -5,13 +5,14 @@ import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
-import { Avatar, CardActionArea } from '@mui/material';
+import {CardActionArea } from '@mui/material';
 import { useHistory } from 'react-router-dom';
 import { useStateValue } from '../../StateProvider';
 import Button from '@mui/material/Button';
 import Header from '../Header/Header';
 import firebase from 'firebase';
 import db, { auth } from '../../firebase';
+
 
 function UserProfile() {
     const [{ userInfo, user }] = useStateValue();
@@ -82,8 +83,8 @@ function UserProfile() {
                     </CardContent>
                 </CardActionArea>
                 <div style={{display:'flex',width:'100%',maxWidth:'500px',justifyContent:'space-around'}}>
-                    <Button variant="contained" className='UserProfile__button' style={{margin:'0 1%',width:"48%"}} onClick={updateAccount}>Update Account</Button>
-                    <Button variant="outlined" style={{margin:'0 1%',width:"48%"}} onClick={() => {
+                    <Button variant="contained" className='UserProfile__button' style={{margin:'0 1%',width:"35%"}} size="small" onClick={updateAccount}>Update Account</Button>
+                    <Button variant="outlined" size="small" style={{margin:'0 1%',width:"35%"}} onClick={() => {
                         if (user) {
                             auth.signOut().then(() => {
                                 window.location.reload()
