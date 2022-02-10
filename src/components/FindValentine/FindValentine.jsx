@@ -44,9 +44,9 @@ function FindValentine() {
                             Find
                         </div>
                         <div className="recommendPeople" id='box1'>
-                            {data.map((data) => (
+                            {/* {data.map((data) => (
                                 <ProfileCard data={data} />
-                            ))}
+                            ))} */}
                             <div className="Arrow__showrecommendProfile" onClick={funct1}>
                                 <ArrowForwardRoundedIcon className='Arrow__showrecommendInProfile' />
                             </div>
