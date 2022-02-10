@@ -9,6 +9,7 @@ import Nodata from '../Nodata/Nodata';
 function HomePreferedBy() {
     const [{ user, userInfo }] = useStateValue();
     const [data, setData] = useState([]);
+    
     useEffect(() => {
         if (userInfo?.gender && user?.uid) {
             db.collection(userInfo?.gender == 'male' ? 'boys' : 'girls').doc(user?.uid).collection('Preferenceby').onSnapshot((snapshot) => {
@@ -21,7 +22,7 @@ function HomePreferedBy() {
             })
         }
     }, [userInfo?.gender]);
-    console.log("first",data)
+
     return (
         <div>
             <Header />

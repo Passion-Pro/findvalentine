@@ -44,7 +44,7 @@ function FindValentine() {
                 <div className="homeBody">
                     <div className="header__ProfileName">
                         <div className='header__ProfileName__Head'>
-                            Find
+                            {/* Find */}
                             {/* <div> */}
                                 <input placeholder='Search by name' type="text" onChange={e => setInputSearch(e.target.value)} />
                                 <input placeholder='Search by email' type="text" onChange={e => setEmailSearch(e.target.value)} />
