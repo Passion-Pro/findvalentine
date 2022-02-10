@@ -15,7 +15,7 @@ import UserProfile from './components/profilecard/UserProfile'
 import ChatPage from './components/Home/ChatPage';
 
 function App() {
-  const[{user} , dispatch] = useStateValue();
+  const[{user,showPop} , dispatch] = useStateValue();
   
   useEffect(() => {
     
@@ -55,7 +55,14 @@ function App() {
   }, [user]);
 
   return (
-    <div className="App">
+    <div className="App" onClick={()=>{
+      if(showPop){
+        dispatch({
+          type: actionTypes.SET_SHOW_POP,
+          showPop: false,
+        })
+      }
+    }}>
       <Router>
         <Switch>
           <Route path="/signup">

@@ -11,8 +11,19 @@
     max-width: 400px;
     align-items: center;
     flex-direction:  column;
-    background-color: rgb(235, 231, 231);
-}   
+    /* background-color: rgb(235, 231, 231); */
+    border : 1px solid lightgray;
+    border-radius:  10px;
+    margin-top : 10px;
+    justify-content:  center;
+}  
+
+@media(max-width : 500px){
+    .signUp_in{
+        border : 0;
+        margin-top : 0
+    }
+}
 
 .upload_photo{
     display: flex;
@@ -88,7 +99,9 @@
        width : 300px;
        height : 250px;
        border-radius: 10px;
-
    }
+   .signUp_in{
+    background-color: rgb(235, 231, 231);
+}   
 }
 
