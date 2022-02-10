@@ -16,7 +16,7 @@ function FindValentine() {
     useEffect(() => {
         if (userInfo?.gender)
             db.collection(userInfo?.gender === 'male' ? 'girls' : 'boys')
-                .orderBy('timestamp', 'desc')
+                .orderBy('timestamp', 'asc')
                 .onSnapshot((snapshot) => {
                     setData(
                         snapshot.docs.map((doc) => ({
@@ -45,15 +45,12 @@ function FindValentine() {
                     <div className="header__ProfileName">
                         <div className='header__ProfileName__Head'>
                             Find
-                            <div>
+                            {/* <div> */}
                                 <input placeholder='Search by name' type="text" onChange={e => setInputSearch(e.target.value)} />
                                 <input placeholder='Search by email' type="text" onChange={e => setEmailSearch(e.target.value)} />
-                            </div>
+                            {/* </div> */}
                         </div>
                         <div className="recommendPeople" id='box1'>
-                            {/* {data.map((data) => (
-                                <ProfileCard data={data} />
-                            ))} */}
                             { emailSearch=='' ? data && data.filter(item => {return item?.data?.name.toLowerCase().includes(inputSearch.toLowerCase())
                             }).map((data) => (
                                 <ProfileCard data={data} />

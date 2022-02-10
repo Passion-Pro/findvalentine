@@ -12,11 +12,12 @@ import ListPage from './components/ListPage/ListPage';
 import HomePreferedBy from './components/Home/HomePreferedBy';
 import HomeChat from './components/Home/HomeChat';
 import FindValentine from './components/FindValentine/FindValentine';
-
+import UserProfile from './components/profilecard/UserProfile'
 function App() {
   const[{user,userInfo} , dispatch] = useStateValue();
   
   useEffect(() => {
+    
     auth.onAuthStateChanged((auth) => {
       if (auth) {
         dispatch({
@@ -63,6 +64,9 @@ function App() {
             {<Login />}
           </Route>
 
+          <Route path="/userProfile">
+            {user?.email ? <UserProfile /> : <Login />}
+          </Route>
           <Route path="/homepreferedBy">
             {user?.email ? <HomePreferedBy /> : <Login />}
           </Route>

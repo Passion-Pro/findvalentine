@@ -4,6 +4,7 @@ import { useStateValue } from '../../StateProvider';
 import Header from '../Header/Header'
 import HeaderSecond from '../Header/HeaderSecond'
 import ListPage from '../ListPage/ListPage'
+import Nodata from '../Nodata/Nodata';
 
 function HomePreferedBy() {
     const [{ user, userInfo }] = useStateValue();
@@ -27,9 +28,10 @@ function HomePreferedBy() {
             <HeaderSecond />
             <div>
                {
-                   data && data.map((data)=>(
+                   data.length!=0 ? data.map((data)=>(
                     <ListPage data={data} />
-                   ))
+                   )):
+                  <Nodata/>
                }
             </div>
         </div>

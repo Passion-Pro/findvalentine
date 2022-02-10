@@ -7,6 +7,20 @@
     margin: 15px;
     background-color: rgb(240, 239, 239);
 }
+.profilecardUser{
+    display: flex;
+    flex-direction: column;
+    width: 100vw;
+    /* max-width: 500px; */
+    height: 90vh!important;
+    align-items: center!important;
+    /* justify-content: center!important; */
+}
+.UserProfile__button{
+    display: flex;
+    width: 90%;
+    max-width: 500px;
+}
 .profileimage__profilecard{
     display: flex;
     position:absolute;

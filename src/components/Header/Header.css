@@ -59,6 +59,8 @@
 .Loginheader_profileName{
     display: flex;
     font-size: small;
+    color: white;
+    font-weight: 600;
 }
 @media(max-width:800px){
     .Loginheader__home__Icon>button{

@@ -18,7 +18,23 @@ function ProfileCard({ data }) {
   const [{ user, userInfo }, dispatch] = useStateValue();
 
   const history = useHistory();
-  const [ratepopUp, setRatePopUp] = useState(false)
+  const [ratepopUp, setRatePopUp] = useState(false);
+  const [alreadyRated,setAlreadyRated]=useState('')
+
+  useState(()=>{
+     if(userInfo?.gender){
+      db.collection(userInfo?.gender == 'male' ? 'boys' : 'girls').doc(user?.uid).collection("Preference").where('email','==',data?.data?.email).get()
+      .then((querySnapshot) => {
+        querySnapshot.forEach((doc) => {
+            setAlreadyRated(doc?.id)
+            console.log(doc?.id)
+        });
+      })
+      .catch((error) => {
+        console.log("Error getting documents: ", error);
+      });
+     }
+  },[])
 
   const yourValentine = () => {
     if (userInfo?.gender) {
@@ -280,22 +296,35 @@ function ProfileCard({ data }) {
         <Container>
           <div className="passionPopup">
             <div className="passion_list">
-              <div className="Card_popUp__list_V" onClick={yourValentine}>
+              <div className="Card_popUp__list_V" onClick={alreadyRated ? ()=>{
+                alert("You already choose one.")
+              }:yourValentine}>
                 My Valentine
               </div>
-              <div className="Card_popUp__list_TC" onClick={takeChance}>
+              <div className="Card_popUp__list_TC" 
+              onClick={alreadyRated ? ()=>{
+                alert("You already choose one.")
+              }:takeChance}>
                 Take a chance
               </div>
-              <div className="Card_popUp__list_BF" onClick={bestfriend}>
+              <div className="Card_popUp__list_BF" onClick={alreadyRated ? ()=>{
+                alert("You already choose one.")
+              }:bestfriend}>
                 Best Friend
               </div>
-              <div className="Card_popUp__list_F" const={friend}>
+              <div className="Card_popUp__list_F" onClick={alreadyRated ? ()=>{
+                alert("You already choose one.")
+              }:friend}>
                 Friend
               </div>
-              <div className="Card_popUp__list_MB" const={meraBahi}>
-                {data?.data?.gender ? "Mera Bhai" : "Meri Bahen"}
+              <div className="Card_popUp__list_MB" onClick={alreadyRated ? ()=>{
+                alert("You already choose one.")
+              }:meraBahi}>
+                {data?.data?.gender=="female" ? "Mera Bhai" : "Meri Bahen"}
               </div>
-              <div className="Card_popUp__list_NI" const={notInterested}>
+              <div className="Card_popUp__list_NI" onClick={alreadyRated ? ()=>{
+                alert("You already choose one.")
+              }:notInterested}>
                 Not Interested
               </div>
               <div className="Card_popUp__list_S" onClick={skip}>
