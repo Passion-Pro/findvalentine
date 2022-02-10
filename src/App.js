@@ -12,6 +12,7 @@ import ListPage from './components/ListPage/ListPage';
 import HomePreferedBy from './components/Home/HomePreferedBy';
 import HomeChat from './components/Home/HomeChat';
 import FindValentine from './components/FindValentine/FindValentine';
+import ChatPage from './components/Home/ChatPage';
 
 function App() {
   const[{user,userInfo} , dispatch] = useStateValue();
@@ -72,11 +73,14 @@ function App() {
           <Route path="/public">
             {user?.email ? <Public /> : <Login />}
           </Route>
-          {/* <Route path="/chat">
-            {user?.email ? <HomeChat /> : <Login />}
-          </Route> */}
           <Route path="/chat/:chatId">
             {user?.email ? <HomeChat /> : <Login />}
+          </Route>
+          <Route path="/chat">
+            {user?.email ? <HomeChat /> : <Login />}
+          </Route>
+          <Route path="/chatMobile/:chatId">
+            {user?.email ? <ChatPage/> : <Login />}
           </Route>
           <Route path="/public">
             <Public/>
