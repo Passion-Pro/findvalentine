@@ -12,7 +12,7 @@ import Button from '@mui/material/Button';
 import Header from '../Header/Header';
 import firebase from 'firebase';
 import db, { auth } from '../../firebase';
-
+import AddAPhotoRoundedIcon from '@mui/icons-material/AddAPhotoRounded';
 
 function UserProfile() {
     const [{ userInfo, user }] = useStateValue();
@@ -35,11 +35,15 @@ function UserProfile() {
                     if (userInfo?.gender === 'male') {
                         db.collection('boys').doc(user.uid).update({
                             profilePhotoUrl: url,
+                        }).then(()=>{
+                            alert("Update successfully")
                         })
                     }
                     else {
                         db.collection('girls').doc(user.uid).update({
                             profilePhotoUrl: url,
+                        }).then(()=>{
+                            alert("Update successfully")
                         })
                     }
                 })
@@ -51,10 +55,12 @@ function UserProfile() {
     return (
         <>
             <Header />
-            <Card className='profilecardUser'>
+            <div className='profilecardUser'>
                 <div className="signUp_in">
                     <label htmlFor="image">
-                        <p className='upload_photo'>Choose a image</p>
+                    <div style={{display:"flex",alignItem:'center'}}>
+                    <p style={{paddingRight:"8px",color:'gray'}}><AddAPhotoRoundedIcon/></p> <p className='upload_photo'>Choose a image</p>
+                    </div>
                     </label>
                     <input
                         type="file"
@@ -65,7 +71,7 @@ function UserProfile() {
                         onChange={selectImage}
                         accept="image/git , image/jpeg , image/png"
                     />
-                </div>
+                
                 <CardActionArea style={{ display: "flex", flexDirection: "column", maxWidth: '500px', justifyContent: 'center' }}>
                     <CardMedia
                         component="img"
@@ -74,7 +80,7 @@ function UserProfile() {
                         alt="Image"
                     />
                     <CardContent>
-                        <Typography gutterBottom variant="div" component="div" style={{ color: '#0a2540' }}>
+                        <Typography gutterBottom variant="div" component="h3" style={{display:"flex", color: '#0a2540',justifyContent:"flex-start",alignItems:"flex-start" }}>
                             {userInfo?.name}
                         </Typography>
                         <Typography variant="div" color="#0a2540" style={{ fontWeight: 'bold' }}>
@@ -82,9 +88,9 @@ function UserProfile() {
                         </Typography>
                     </CardContent>
                 </CardActionArea>
-                <div style={{display:'flex',width:'100%',maxWidth:'500px',justifyContent:'space-around'}}>
-                    <Button variant="contained" className='UserProfile__button' style={{margin:'0 1%',width:"35%"}} size="small" onClick={updateAccount}>Update Account</Button>
-                    <Button variant="outlined" size="small" style={{margin:'0 1%',width:"35%"}} onClick={() => {
+                <div style={{display:'flex',width:'100%',maxWidth:'500px',paddingTop:'12px',justifyContent:'space-around'}}>
+                    <Button variant="contained" className='UserProfile__button' style={{margin:'0',width:"35%"}} fontSize="small" onClick={updateAccount}>Update</Button>
+                    <Button variant="outlined" fontSize="small" style={{margin:'0',width:"35%"}} onClick={() => {
                         if (user) {
                             auth.signOut().then(() => {
                                 window.location.reload()
@@ -93,7 +99,8 @@ function UserProfile() {
                         }
                     }}>Logout</Button>
                 </div>
-            </Card>
+                </div>
+            </div>
         </>
     );
 }

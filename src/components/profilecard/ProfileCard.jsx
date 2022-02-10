@@ -49,6 +49,22 @@ function ProfileCard({ data }) {
         email: data?.data?.email,
       })
       .then(() => {
+        history.push(`/chat/${data?.data?.uid}`);
+      });
+  };
+
+  const createChat_mobile = (e) => {
+    e.preventDefault();
+
+    db.collection(userInfo?.gender == "male" ? "boys" : "girls")
+      .doc(user.uid)
+      .collection("chats")
+      .doc(data?.data?.uid)
+      .set({
+        name: data?.data?.name,
+        email: data?.data?.email,
+      })
+      .then(() => {
         history.push(`/chatMobile/${data?.data?.uid}`);
       });
   };
@@ -610,7 +626,7 @@ function ProfileCard({ data }) {
               <CardMedia
                 component="img"
                 height="240"
-                image={data?.data?.profilePhotoUrl}
+                image={data?.data?.profilePhotoUrl ? data?.data?.profilePhotoUrl:"https://upload.wikimedia.org/wikipedia/commons/thumb/b/bc/Unknown_person.jpg/694px-Unknown_person.jpg"}
                 alt="Image"
               />
 
@@ -627,7 +643,14 @@ function ProfileCard({ data }) {
                   }}>
                     Preference
                   </button>
-                  <button>
+                  <button onClick = {createChat_mobile}
+                   className = "chat_mobile"
+                  >
+                    Chat
+                  </button>
+                  <button  onClick = {createChat}
+                  className = "chat_laptop"
+                  >
                     Chat
                   </button>
                 </div>

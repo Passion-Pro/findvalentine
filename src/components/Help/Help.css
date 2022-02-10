@@ -1,0 +1,17 @@
+.help{
+    display: flex;
+    width: 100vw;
+    height: 90vh;
+    align-items: center;
+    justify-content: center;
+}
+.help__In{
+    display: flex;
+    flex-direction: column;
+    width: fit-content;
+    justify-content: center;
+    align-items: center;
+    border-radius: "8px";
+    border: 1px solid lightgray;
+    padding: 30px 20px !important;
+}

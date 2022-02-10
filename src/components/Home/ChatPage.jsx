@@ -29,6 +29,7 @@ function ChatPage() {
     const [mesages, setMesages] = useState([]);
     const { chatId } = useParams();
     const[chatInfo , setChatInfo] = useState([]);
+    const[profilePhotoUrl ,setProfilePhotoUrl] = useState();
 
     useEffect(() => {
         if (user?.uid && userInfo?.gender && chatId) {
@@ -46,6 +47,8 @@ function ChatPage() {
                 }))
               )
             );
+
+
     
             db.collection(userInfo?.gender === "male" ? "boys" : "girls")
             .doc(user?.uid)
@@ -53,12 +56,22 @@ function ChatPage() {
             .doc(chatId).onSnapshot((snapshot) => {
               setChatInfo(snapshot.data());
             })
+
+
         }
       }, [chatId, user?.uid, userInfo?.gender]);
 
       useEffect(() => {
-          console.log("ChatInfo is " , chatInfo)
-      } , [chatInfo])
+          console.log("ChatInfo is " , chatInfo);
+      } , [chatInfo]);
+
+      useEffect(() => {
+         if(chatId){
+           db.collection(userInfo?.gender === "female" ? "boys" : "girls").doc(chatId).onSnapshot((snapshot) => {
+             setProfilePhotoUrl(snapshot.data().profilePhotoUrl)
+           })
+         }
+      } , [chatId])
 
 const onEmojiClick = (event, emojiObject) => {
         setChosenEmoji(emojiObject);
@@ -155,7 +168,7 @@ const onEmojiClick = (event, emojiObject) => {
               />
               <Avatar
                 className="student_avatar"
-                src="https://cdn.britannica.com/66/188766-050-38F1436A/Mark-Zuckerberg-2010.jpg"
+                src= {profilePhotoUrl}
               />
               <p className="name">{chatInfo?.name}</p>
             </div>

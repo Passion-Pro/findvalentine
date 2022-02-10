@@ -13,6 +13,7 @@ import HomeChat from './components/Home/HomeChat';
 import FindValentine from './components/FindValentine/FindValentine';
 import UserProfile from './components/profilecard/UserProfile'
 import ChatPage from './components/Home/ChatPage';
+import Help from './components/Help/Help';
 
 function App() {
   const[{user,showPop} , dispatch] = useStateValue();
@@ -74,6 +75,9 @@ function App() {
 
           <Route path="/userProfile">
             {user?.email ? <UserProfile /> : <Login />}
+          </Route>
+          <Route path="/help">
+            {user?.email ? <Help /> : <Login />}
           </Route>
           <Route path="/homepreferedBy">
             {user?.email ? <HomePreferedBy /> : <Login />}

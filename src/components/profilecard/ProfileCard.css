@@ -13,6 +13,10 @@
     width: 100vw;
     height: 90vh!important;
     align-items: center!important;
+    box-shadow: none;
+    border: none;
+    padding: 0;
+    margin: 0;
 }
 .UserProfile__button{
     display: flex;
@@ -75,6 +79,9 @@
     justify-content: space-around;
 }
 .card__Button>button{
+    display: flex;
+    align-items: baseline;
+    justify-content: center;
     width : 100px;
     margin-right : 20px;
     padding: 8px 0;
@@ -208,5 +215,24 @@
         height: 325px;
         margin: 2%;
         min-width: 10px !important;
+    }
+}
+
+.chat_mobile{
+    display:  none!important;
+}
+.chat_laptop{
+    display: flex!important;
+    align-items: center;
+    width: 100%;
+}
+@media(max-width:500px){
+    .chat_mobile{
+        display:  flex!important;
+        align-items: center;
+        width: 100%;
+    }   
+    .chat_laptop{
+        display: none!important;
     }
 }

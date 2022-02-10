@@ -8,6 +8,29 @@ import { useHistory } from "react-router-dom";
 function ChatName({ chat }) {
   const [{ user, userInfo }, dispatch] = useStateValue();
   const history = useHistory();
+  const[profilePhotoUrl , setProfilePhotoUrl] = useState()
+
+
+  useEffect(() => {
+     if(chat?.data?.email){
+      db.collection(userInfo?.gender === "female" ? "boys" : "girls")
+      .where("email", "==", chat?.data?.email)
+      .get()
+      .then((querySnapshot) => {
+        querySnapshot.forEach((doc) => {
+          // doc.data() is never undefined for query doc snapshots
+          console.log(doc.id, " => ", doc.data());
+
+          setProfilePhotoUrl(doc.data().profilePhotoUrl)
+         
+
+        });
+      })
+      .catch((error) => {
+        console.log("Error getting documents: ", error);
+      });
+     }
+  } , [chat?.data?.email])
 
   const openChat = (e) => {
     db.collection(userInfo?.gender === "female" ? "boys" : "girls")
@@ -53,7 +76,7 @@ function ChatName({ chat }) {
        <div className="name_laptop" >
        <Avatar
         className="student_avatar"
-        src="https://cdn.britannica.com/66/188766-050-38F1436A/Mark-Zuckerberg-2010.jpg"
+        src= {profilePhotoUrl}
       />
       <p className="name">{chat?.data?.name}</p>
        </div>
@@ -62,7 +85,7 @@ function ChatName({ chat }) {
      <div className="name_mobile">
      <Avatar
         className="student_avatar"
-        src="https://cdn.britannica.com/66/188766-050-38F1436A/Mark-Zuckerberg-2010.jpg"
+        src= {profilePhotoUrl}
       />
       <p className="name">{chat?.data?.name}</p>
      </div>

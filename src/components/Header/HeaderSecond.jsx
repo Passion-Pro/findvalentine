@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import './HeaderSecond.css';
 import { useHistory } from 'react-router-dom';
 import { useStateValue } from '../../StateProvider';
+import HelpOutlineRoundedIcon from '@mui/icons-material/HelpOutlineRounded';
 
 function HeaderSecond() {
     const [{ user, courseDiv, showExpandGroup, showMoreoption }, dispatch] = useStateValue();
@@ -40,6 +41,12 @@ function HeaderSecond() {
                             setPathName('/chat')
                         }} className={window.location.pathname == '/chat' ? "followingCard__active" : "followingCard"}>
                             Chat
+                        </div>
+                        <div onClick={() => {
+                            history.push('/help')
+                            setPathName('/help')
+                        }} className={window.location.pathname == '/help' ? "followingCard__active" : "followingCard"}>
+                            Help{' '} <HelpOutlineRoundedIcon fontSize='small'/>
                         </div>
                     </div>
                 </div>

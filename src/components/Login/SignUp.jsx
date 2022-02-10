@@ -33,7 +33,7 @@ function SignUp() {
     useEffect(() => {
         if (runFunction) {
             setLoading(true);
-            if (name && email && password && gender) {
+            if (name && email && password && gender && image) {
                 auth
                     .createUserWithEmailAndPassword(email, password)
                     .then((auth) => {
@@ -129,7 +129,7 @@ function SignUp() {
                       </div> 
                         </label>
                         <input
-                            type="file"
+                            type="file"help__In
                             style={{
                                 display: "none",
                             }}
@@ -148,7 +148,7 @@ function SignUp() {
                                 value={name}
                                 onChange={(e) => setName(e.target.value)}
                             />
-                            <input type="text" placeholder='Enter Your Email'
+                            <input type="text" placeholder='Enter Your IIT Roorkee Email Address'
                                 value={email}
                                 onChange={(e) => setEmail(e.target.value)}
                             />
@@ -190,7 +190,6 @@ function SignUp() {
                             </div>
                                 </div>
                         </div>
-                        <span style={{ display: 'flex', fontWeight: '600', fontFamily: "serif", padding: '12px 4px' }}>Created by Nishant and Ronak ❤️</span>
                     </div>
                 </div>
             }
