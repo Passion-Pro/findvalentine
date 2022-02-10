@@ -56,6 +56,10 @@ function ChatPage() {
         }
       }, [chatId, user?.uid, userInfo?.gender]);
 
+      useEffect(() => {
+          console.log("ChatInfo is " , chatInfo)
+      } , [chatInfo])
+
 const onEmojiClick = (event, emojiObject) => {
         setChosenEmoji(emojiObject);
         setInput(input + emojiObject?.emoji);
