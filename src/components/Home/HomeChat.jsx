@@ -13,6 +13,7 @@ import db from "../../firebase";
 import { useStateValue } from "../../StateProvider";
 import { actionTypes } from "../../reducer";
 import firebase from "firebase";
+import Message from "./Message";
 
 function HomeChat() {
   const [chosenEmoji, setChosenEmoji] = useState(null);
@@ -24,6 +25,7 @@ function HomeChat() {
   const [chats, setChats] = useState([]);
   const [mesages, setMesages] = useState([]);
   const { chatId } = useParams();
+  const[chatInfo , setChatInfo] = useState([]);
 
   useEffect(() => {
     console.log(userInfo);
@@ -50,6 +52,7 @@ function HomeChat() {
         .collection("chats")
         .doc(chatId)
         .collection("messages")
+        .orderBy("timestamp", "desc")
         .onSnapshot((snapshot) =>
           setMessages(
             snapshot.docs.map((doc) => ({
@@ -58,6 +61,13 @@ function HomeChat() {
             }))
           )
         );
+
+        db.collection(userInfo?.gender === "male" ? "boys" : "girls")
+        .doc(user?.uid)
+        .collection("chats")
+        .doc(chatId).onSnapshot((snapshot) => {
+          setChatInfo(snapshot.data());
+        })
     }
   }, [chatId, user?.uid, userInfo?.gender]);
 
@@ -70,7 +80,7 @@ function HomeChat() {
     e.preventDefault();
      console.log("ChatId is " , chatId);
      console.log("My Id is" , user?.uid)
-    if (messages?.length === 0 && chatId && user?.uid) {
+    if (messages?.length === 0 && chatId && user?.uid && input!== '') {
       console.log("done1"); 
       db.collection(userInfo?.gender === "female" ? "boys" : "girls")
         .doc(chatId)
@@ -91,6 +101,8 @@ function HomeChat() {
               message: input,
               name: userInfo?.name,
               timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+              email : userInfo?.email,
+              gender : userInfo?.gender
             });
         });
 
@@ -103,9 +115,12 @@ function HomeChat() {
           message: input,
           name: userInfo?.name,
           timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+          email : userInfo?.email,
+          gender : userInfo?.gender
         });
-    } else {
-      db.collection(userInfo?.gender === "female" ? "boys" : "girls")
+        setInput('')
+    } else if(chatId && user?.uid && input!== '') {
+      db.collection(userInfo?.gender === "male" ? "boys" : "girls")
         .doc(user?.uid)
         .collection("chats")
         .doc(chatId)
@@ -114,9 +129,11 @@ function HomeChat() {
           message: input,
           name: userInfo?.name,
           timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+          email : userInfo?.email,
+          gender : userInfo?.gender
         });
 
-      db.collection(userInfo?.gender === "male" ? "boys" : "girls")
+      db.collection(userInfo?.gender === "female" ? "boys" : "girls")
         .doc(chatId)
         .collection("chats")
         .doc(user?.uid)
@@ -125,8 +142,13 @@ function HomeChat() {
           message: input,
           name: userInfo?.name,
           timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+          email : userInfo?.email,
+          gender : userInfo?.gender
         });
+        setInput('');
+
     }
+
   };
 
   return (
@@ -141,7 +163,9 @@ function HomeChat() {
             </div>
             <div className="names">
               {chats.map((chat) => (
+                <>
                 <ChatName chat={chat} />
+                </>
               ))}
             </div>
           </div>
@@ -151,9 +175,13 @@ function HomeChat() {
                 className="student_avatar"
                 src="https://cdn.britannica.com/66/188766-050-38F1436A/Mark-Zuckerberg-2010.jpg"
               />
-              <p className="name">Ronak</p>
+              <p className="name">{chatInfo?.name}</p>
             </div>
-            <div className="messages_messages"></div>
+            <div className="messages_messages">
+               {messages.map((message) => (
+                 <Message message = {message?.data}/>
+               ))}
+            </div>
             <div className="chat_section_footer">
               <div className="message_input">
                 <InsertEmoticonIcon
@@ -195,6 +223,15 @@ const Container = styled.div`
     flex: 0.25 !important;
     border-right: 1px solid lightgray;
     border-left: 1px solid lightgray;
+    overflow-y : scroll;
+
+    @media(max-width: 500px){
+      flex : 1 !important;
+    }
+
+    ::-webkit-scrollbar{
+      display : none;
+    }
   }
 
   .chat_messages {
@@ -202,6 +239,11 @@ const Container = styled.div`
     border-right: 1px solid lightgray;
     display: flex;
     flex-direction: column;
+
+
+    @media(max-width: 500px){
+      display : none;
+    }
   }
 
   .chat_header {
@@ -223,6 +265,17 @@ const Container = styled.div`
 
   .messages_messages {
     flex: 1;
+    display: flex;
+    flex-direction: column-reverse;
+    overflow-y : scroll;
+
+    ::-webkit-scrollbar {
+      display: none;
+    }
+
+
+    
+
   }
 
   .chat_section_footer {
