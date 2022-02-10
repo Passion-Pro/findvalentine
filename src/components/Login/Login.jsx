@@ -4,6 +4,7 @@ import db, { auth, storage } from "../../firebase";
 import { actionTypes } from "../../reducer";
 import { useStateValue } from "../../StateProvider";
 import { useHistory } from "react-router-dom";
+import Header from '../Header/Header';
 
 function Login() {
     const [email, setEmail] = useState();
@@ -72,10 +73,11 @@ function Login() {
 
     return (
         <div>
+          <Header/>
             <Container>
                 <div className="signIn">
                     <div className="signIn__header">
-                        <p>Passion</p>
+                        <p>Find Valentine</p>
                     </div>
                     <form action="">
                         <div className="signIn_form">
@@ -117,7 +119,7 @@ display : flex;
 flex-direction : column;
 justify-content : center;
 align-items : center;
-background-color : #f0f0f0;
+/* background-color : #f0f0f0; */
 flex : 1;
 
 @media (max-width: 500px) {
@@ -161,6 +163,7 @@ flex : 1;
 .signIn{
   display : flex;
   flex-direction : column;
+  /* width:"98%" */
 }
 
 .signIn_form {

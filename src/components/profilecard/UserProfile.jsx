@@ -11,10 +11,10 @@ import { useStateValue } from '../../StateProvider';
 import Button from '@mui/material/Button';
 import Header from '../Header/Header';
 import firebase from 'firebase';
-import db from '../../firebase';
+import db, { auth } from '../../firebase';
 
 function UserProfile() {
-    const [{ userInfo ,user}] = useStateValue();
+    const [{ userInfo, user }] = useStateValue();
     const [image, setImage] = React.useState(null);
 
     const history = useHistory();
@@ -24,26 +24,26 @@ function UserProfile() {
         }
     }
 
-    const  updateAccount = async () => {
+    const updateAccount = async () => {
         if (userInfo && image) {
             const imagesRefforImage = firebase.storage().ref('images').child(userInfo.imageId);
-            imagesRefforImage.delete().then(async()=>{
+            imagesRefforImage.delete().then(async () => {
                 const imagesRef = firebase.storage().ref("images").child(userInfo.imageId);
-                await imagesRef.put(image);  
+                await imagesRef.put(image);
                 imagesRef.getDownloadURL().then((url) => {
-                    if(userInfo?.gender === 'male'){
+                    if (userInfo?.gender === 'male') {
                         db.collection('boys').doc(user.uid).update({
                             profilePhotoUrl: url,
                         })
                     }
-                    else{
+                    else {
                         db.collection('girls').doc(user.uid).update({
                             profilePhotoUrl: url,
                         })
                     }
                 })
             })
-        }else{
+        } else {
             alert('Please choose image')
         }
     }
@@ -81,7 +81,17 @@ function UserProfile() {
                         </Typography>
                     </CardContent>
                 </CardActionArea>
-                <Button variant="contained" className='UserProfile__button' onClick={updateAccount}>Update Account</Button>
+                <div style={{display:'flex',width:'100%',maxWidth:'500px',justifyContent:'space-around'}}>
+                    <Button variant="contained" className='UserProfile__button' style={{margin:'0 1%',width:"48%"}} onClick={updateAccount}>Update Account</Button>
+                    <Button variant="outlined" style={{margin:'0 1%',width:"48%"}} onClick={() => {
+                        if (user) {
+                            auth.signOut().then(() => {
+                                window.location.reload()
+                            });
+                            history.push("/")
+                        }
+                    }}>Logout</Button>
+                </div>
             </Card>
         </>
     );

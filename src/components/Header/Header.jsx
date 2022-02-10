@@ -17,18 +17,17 @@ function Header() {
                     </div>
 
                     <div className="Loginheader__Icons">
-                        <div className={window.location.pathname=='/findvalentine'?"Loginheader__home__IconActive":"Loginheader__home__Icon"}>
+                        {userInfo?.profilePhotoUrl && <div className={window.location.pathname=='/findvalentine'?"Loginheader__home__IconActive":"Loginheader__home__Icon"}>
                             <button onClick={() => history.push('/findvalentine')}>Find Valentine</button>
-                        </div>
-
-                        <div className="Loginheader__profile" onClick={() => {
+                        </div>}
+                      {userInfo?.profilePhotoUrl && <div className="Loginheader__profile" onClick={() => {
                             history.push('/userProfile')
                         }}>
                             <Avatar src={userInfo?.profilePhotoUrl} />
                             <span className='Loginheader_profileName'>
                                 {userInfo?.name && userInfo?.name?.length > 9 ? userInfo?.name.slice(0, 9) + '...' : userInfo?.name}
                             </span>
-                        </div>
+                        </div>}
                     </div>
                 </div>
             </div>

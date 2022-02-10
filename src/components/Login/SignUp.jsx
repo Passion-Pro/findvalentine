@@ -10,7 +10,7 @@ import firebase from 'firebase';
 import Header from '../Header/Header';
 
 function SignUp() {
-    const [{ }, dispatch] = useStateValue();
+    const [{ user}, dispatch] = useStateValue();
 
     const [image, setImage] = useState(null);
     const [gender, setGender] = useState();
@@ -168,7 +168,9 @@ function SignUp() {
                             <div>
                             </div>
                         </div>
-                        <Button variant="contained" style={{ width: '95%' }} onClick={createAccount}>Create Account</Button>
+                        <div>
+                            <Button variant="contained" style={{ width: '95%' }} onClick={createAccount}>Create Account</Button>
+                        </div>
                     </div>
                 </div>
             </div>
