@@ -1,10 +1,11 @@
 /* sx={{ minWidth:'345px',margin:"20px",height:'fit-content' }} */
 .profilecard{
-    max-width: 350px;
+    max-width: 300px;
     max-height: 325px;
-    min-width: 350px;
+    min-width: 300px;
     min-height: 325px;
     margin: 15px;
+    background-color: rgb(240, 239, 239);
 }
 .profileimage__profilecard{
     display: flex;
@@ -55,6 +56,132 @@
     padding: 0 8px 0 0;
     font-size: small;
     font-weight:600;
+}
+.card__Button{
+    display: flex;
+    width: 100%;
+    justify-content: space-around;
+}
+.card__Button>button{
+    width : 90px;
+    margin-right : 20px;
+    padding: 8px 0;
+    background-color: rgb(245, 240, 240);
+    border-radius: 20px;
+    font-weight: 600;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    color: rgb(87, 78, 78);
+    border : 1px solid lightgray;
+  }
+  
+.card__Button>button:hover{
+      cursor : pointer;
+}
+.passion_list{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+.Card_popUp__list_V{
+    display: flex;
+    width: 90%;
+    border: 0;
+    padding:10px;
+    border-radius: 20px;
+    background-color: rgb(245, 35, 35);
+    color: white;
+    margin: 4px 2px;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+.Card_popUp__list_BF{
+    display: flex;
+    width: 90%;
+    border: 0;
+    padding:10px;
+    border-radius: 20px;
+    background-color: #eb660d;
+    color: white;
+    margin: 4px 2px;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+.Card_popUp__list_F{
+    display: flex;
+    width: 90%;
+    border: 0;
+    padding:10px;
+    border-radius: 20px;
+    background-color: rgb(238, 133, 13);
+    color: white;
+    margin: 4px 2px;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+.Card_popUp__list_MB{
+    display: flex;
+    width: 90%;
+    border: 0;
+    padding:10px;
+    border-radius: 20px;
+    background-color: #fa03c5;
+    color: white;
+    margin: 4px 2px;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+.Card_popUp__list_NI{
+    display: flex;
+    width: 90%;
+    border: 0;
+    padding:10px;
+    border-radius: 20px;
+    background-color: #686466;
+    color: white;
+    margin: 4px 2px;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+.Card_popUp__list_S{
+    display: flex;
+    width: 90%;
+    border: 0;
+    padding:10px;
+    border-radius: 20px;
+    background-color: rgb(189, 187, 187);
+    color: white;
+    margin: 4px 2px;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+.Card_popUp__list_TC{
+    display: flex;
+    width: 90%;
+    border: 0;
+    padding:10px;
+    border-radius: 20px;
+    background-color: rgb(240, 66, 66);
+    /* background-color: #e02985; */
+    color: white;
+    margin: 4px 2px;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
 @media(max-width:1300px){
     .profilecard{ 

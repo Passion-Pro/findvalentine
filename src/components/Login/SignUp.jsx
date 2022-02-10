@@ -72,6 +72,7 @@ function SignUp() {
                                                 profilePhotoUrl: url,
                                                 gender: gender,
                                                 imageId: id,
+                                                timestamp:firebase.firestore.FieldValue.serverTimestamp(),
                                             })
                                         }
                                         else{
@@ -82,6 +83,7 @@ function SignUp() {
                                                 profilePhotoUrl: url,
                                                 gender: gender,
                                                 imageId: id,
+                                                timestamp:firebase.firestore.FieldValue.serverTimestamp(),
                                             })
                                         }
                                     })

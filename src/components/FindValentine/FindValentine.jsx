@@ -5,29 +5,24 @@ import HeaderSecond from '../Header/HeaderSecond'
 import ProfileCard from '../profilecard/ProfileCard';
 import db from '../../firebase';
 import ArrowForwardRoundedIcon from '@mui/icons-material/ArrowForwardRounded';
+import { useStateValue } from '../../StateProvider';
 
-function HomeWithAllProfile() {
+function FindValentine() {
+    const [{ userInfo, user}] = useStateValue();
+    const [data, setData] = useState([]);
 
-    const [data, setData] = useState([
-        {
-            name: 'nishant'
-        },
-        {
-            name: 'nishant'
-        }
-    ]);
-
-    // useEffect(() => {
-    //     db.collection('users')
-    //         .onSnapshot((snapshot) => {
-    //             setData(
-    //                 snapshot.docs.map((doc) => ({
-    //                     data: doc.data(),
-    //                     id: doc.id,
-    //                 }))
-    //             );
-    //         })
-    // }, []);
+    useEffect(() => {
+        if (userInfo?.gender)
+            db.collection(userInfo?.gender === 'male' ? 'girls' : 'boys')
+                .onSnapshot((snapshot) => {
+                    setData(
+                        snapshot.docs.map((doc) => ({
+                            data: doc.data(),
+                            id: doc.id,
+                        }))
+                    );
+                })
+    }, [userInfo?.gender, user]);
 
     const funct = () => {
         console.log("object")
@@ -46,12 +41,12 @@ function HomeWithAllProfile() {
                 <div className="homeBody">
                     <div className="header__ProfileName">
                         <div className='header__ProfileName__Head'>
-                            Find Find
+                            Find
                         </div>
                         <div className="recommendPeople" id='box1'>
                             {data.map((data) => (
                                 <ProfileCard data={data} />
-                                ))}
+                            ))}
                             <div className="Arrow__showrecommendProfile" onClick={funct1}>
                                 <ArrowForwardRoundedIcon className='Arrow__showrecommendInProfile' />
                             </div>
@@ -63,4 +58,4 @@ function HomeWithAllProfile() {
     )
 }
 
-export default HomeWithAllProfile;
+export default FindValentine;
