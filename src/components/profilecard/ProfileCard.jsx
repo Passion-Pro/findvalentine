@@ -11,13 +11,11 @@ import { useHistory } from "react-router-dom";
 import { useStateValue } from "../../StateProvider";
 import db from "../../firebase";
 import firebase from "firebase";
-// import CircularProgress from '@mui/material/CircularProgress';
 import Loading from "../Loading/Loading";
-// import PassionPopup from './PassionPopup'
-// import { useStateValue } from '../../StateProvider';
+import { actionTypes } from "../../reducer";
 
 function ProfileCard({ data }) {
-  const [{ user, userInfo }, dispatch] = useStateValue();
+  const [{ user, userInfo,showPop }, dispatch] = useStateValue();
 
   const history = useHistory();
   const [ratepopUp, setRatePopUp] = useState(false);
@@ -565,7 +563,7 @@ function ProfileCard({ data }) {
        <Loading/>
         :
         <>
-          {ratepopUp &&
+          {showPop &&
             <Container>
               <div className="passionPopup">
                 <div className="passion_list">
@@ -622,7 +620,10 @@ function ProfileCard({ data }) {
                 </Typography>
                 <div className="card__Button">
                   <button onClick={() => {
-                    setRatePopUp(true);
+                    dispatch({
+                      type: actionTypes.SET_SHOW_POP,
+                      showPop: true,
+                    })
                   }}>
                     Choice
                   </button>

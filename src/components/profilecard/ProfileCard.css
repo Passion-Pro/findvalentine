@@ -11,10 +11,8 @@
     display: flex;
     flex-direction: column;
     width: 100vw;
-    /* max-width: 500px; */
     height: 90vh!important;
     align-items: center!important;
-    /* justify-content: center!important; */
 }
 .UserProfile__button{
     display: flex;

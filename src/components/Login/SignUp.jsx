@@ -9,6 +9,7 @@ import { useHistory } from "react-router-dom"
 import firebase from 'firebase';
 import Header from '../Header/Header';
 import Loading from '../Loading/Loading';
+import AddAPhotoRoundedIcon from '@mui/icons-material/AddAPhotoRounded';
 
 function SignUp() {
     const [{ user }, dispatch] = useStateValue();
@@ -28,6 +29,7 @@ function SignUp() {
             setImage(e.target.files[0]);
         }
     }
+
     useEffect(() => {
         if (runFunction) {
             setLoading(true);
@@ -35,6 +37,7 @@ function SignUp() {
                 auth
                     .createUserWithEmailAndPassword(email, password)
                     .then((auth) => {
+
                         if (auth) {
                             dispatch({
                                 type: actionTypes.SET_USER,
@@ -96,7 +99,8 @@ function SignUp() {
                 setLoading(false);
             }
         }
-    }, [runFunction])
+    }, [runFunction]);
+
     const createAccount = (e) => {
         setLoading(false);
         var str = '.iitr.ac.in';
@@ -121,7 +125,8 @@ function SignUp() {
                 <div className="signUp">
                     <div className="signUp_in">
                         <label htmlFor="image">
-                            <p className='upload_photo'>Upload Your Photo</p>
+                      <div style={{display:"flex",alignItem:'center'}}> <p style={{paddingRight:"8px",color:'gray'}}><AddAPhotoRoundedIcon/></p><p className='upload_photo'>Upload Your Photo</p>
+                      </div> 
                         </label>
                         <input
                             type="file"
@@ -177,7 +182,13 @@ function SignUp() {
                                 <div>
                                 </div>
                             </div>
-                            <Button variant="contained" style={{ width: '95%' }} onClick={createAccount}>Create Account</Button>
+                            <div style={{ display: 'flex',flexDirection:'column', width: '100%', maxWidth: '500px', justifyContent: 'space-around',alignItems:"center" }}>
+                                <Button variant="contained" style={{ width: '95%' }} onClick={createAccount}>Create Account</Button>
+                                {/* <Button variant="contained" style={{ width: '45%' }} onClick={()=>"/signin"}>Sign in</Button> */}
+                                <div style={{display:"flex",padding:'6px 0'}} onClick={()=>history.push('/signin')}>
+                                Already have account <div style={{paddingLeft:'8px',color:"blue",fontWeight:'600',cursor:"pointer"}} >Sign in</div>
+                            </div>
+                                </div>
                         </div>
                         <span style={{ display: 'flex', fontWeight: '600', fontFamily: "serif", padding: '12px 4px' }}>Created by Nishant and Ronak ❤️</span>
                     </div>
