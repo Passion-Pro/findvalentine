@@ -8,8 +8,7 @@ import { v4 as uuid } from "uuid"
 import { useHistory } from "react-router-dom"
 import firebase from 'firebase';
 import Header from '../Header/Header';
-import CircularProgress from '@mui/material/CircularProgress';
-import Box from '@mui/material/Box';
+import Loading from '../Loading/Loading';
 
 function SignUp() {
     const [{ user }, dispatch] = useStateValue();
@@ -21,7 +20,7 @@ function SignUp() {
     const [password, setPassword] = useState();
     const [verify, setVerify] = useState(false);
     const [loading, setLoading] = useState(false);
-    const [runFunction, setRunFunction] = useState(true);
+    const [runFunction, setRunFunction] = useState(false);
     const history = useHistory();
 
     const selectImage = (e) => {
@@ -29,100 +28,96 @@ function SignUp() {
             setImage(e.target.files[0]);
         }
     }
-useEffect(()=>{
-    if (runFunction) {
-        if (name && email && password && gender && image) {
-            auth
-                .createUserWithEmailAndPassword(email, password)
-                .then((auth) => {
-                    if (auth) {
-                        dispatch({
-                            type: actionTypes.SET_USER,
-                            user: auth?.user,
-                        });
-                        const id = uuid();
-                        const upload = storage.ref(`images`).child(id).put(image);
+    useEffect(() => {
+        if (runFunction) {
+            setLoading(true);
+            if (name && email && password && gender) {
+                auth
+                    .createUserWithEmailAndPassword(email, password)
+                    .then((auth) => {
+                        if (auth) {
+                            dispatch({
+                                type: actionTypes.SET_USER,
+                                user: auth?.user,
+                            });
+                            const id = uuid();
+                            const upload = storage.ref(`images`).child(id).put(image);
 
-                        upload.on(
-                            "state_changed",
-                            (snapshot) => {
-                                const progress =
-                                    (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+                            upload.on(
+                                "state_changed",
+                                (snapshot) => {
+                                    const progress =
+                                        (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
 
-                                console.log(`Progress : ${progress}%`);
-                                if (snapshot.state === "RUNNING") {
                                     console.log(`Progress : ${progress}%`);
-                                }
-                            },
-                            (error) => console.log(error),
-                            async () => {
-                                await upload.snapshot.ref.getDownloadURL().then((url) => {
-                                    if (gender === 'male') {
-                                        db.collection('boys').doc(auth.user.uid).set({
-                                            name: name,
-                                            email: email,
-                                            password: password,
-                                            profilePhotoUrl: url,
-                                            gender: gender,
-                                            imageId: id,
-                                            timestamp: firebase.firestore.FieldValue.serverTimestamp(),
-                                            uid: auth.user.uid
-                                        })
+                                    if (snapshot.state === "RUNNING") {
+                                        console.log(`Progress : ${progress}%`);
                                     }
-                                    else {
-                                        db.collection('girls').doc(auth.user.uid).set({
-                                            name: name,
-                                            email: email,
-                                            password: password,
-                                            profilePhotoUrl: url,
-                                            gender: gender,
-                                            imageId: id,
-                                            timestamp: firebase.firestore.FieldValue.serverTimestamp(),
-                                            uid: auth.user.uid
-                                        })
-                                    }
-                                })
-                                    .then(() => {
-                                        history.push('/')
+                                },
+                                (error) => console.log(error),
+                                async () => {
+                                    await upload.snapshot.ref.getDownloadURL().then((url) => {
+                                        if (gender === 'male') {
+                                            db.collection('boys').doc(auth.user.uid).set({
+                                                name: name,
+                                                email: email,
+                                                password: password,
+                                                profilePhotoUrl: url,
+                                                gender: gender,
+                                                imageId: id,
+                                                timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+                                                uid: auth.user.uid
+                                            })
+                                        }
+                                        else {
+                                            db.collection('girls').doc(auth.user.uid).set({
+                                                name: name,
+                                                email: email,
+                                                password: password,
+                                                profilePhotoUrl: url,
+                                                gender: gender,
+                                                imageId: id,
+                                                timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+                                                uid: auth.user.uid
+                                            })
+                                        }
                                     })
-                            }
-                        )
+                                        .then(() => {
+                                            history.push('/')
+                                        })
+                                }
+                            )
 
-                    }
-                })
-                .catch((error) => alert(error.message));
-        } else {
-            alert('Please enter complete details.')
+                        }
+                    })
+                    .catch((error) => alert(error.message));
+            } else {
+                alert('Please enter complete details.')
+                setLoading(false);
+            }
         }
-    } else {
-        alert('Please enter IIT Roorkee email id')
-    }
-},[])
+    }, [runFunction])
     const createAccount = (e) => {
+        setLoading(false);
         var str = '.iitr.ac.in';
         for (var i = 0; i < 11; i++) {
             if (email[email.length - 1 - i] == str[str.length - 1 - i]) {
                 setVerify(true);
-                if(email[email.length - 11] == str[str.length - 11]){
-                    setRunFunction(false);
+                if (email[email.length - 11] == str[str.length - 11]) {
+                    setRunFunction(true);
                 }
             } else {
                 setVerify(false);
-                setRunFunction(false);
+                setRunFunction(true);
                 break;
             }
         }
-        e.preventDefault();
-        // while(runFunction){
-        // }
     }
     return (
         <>
             <Header />
             {loading ?
-                <Box sx={{ display: 'flex' }}>
-                    <CircularProgress />
-                </Box> :
+                <Loading /> :
                 <div className="signUp">
                     <div className="signUp_in">
                         <label htmlFor="image">

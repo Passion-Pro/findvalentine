@@ -8,7 +8,6 @@ import db ,  {auth} from './firebase';
 import { actionTypes } from './reducer';
 import { useStateValue } from './StateProvider';
 import { useEffect } from 'react';
-import ListPage from './components/ListPage/ListPage';
 import HomePreferedBy from './components/Home/HomePreferedBy';
 import HomeChat from './components/Home/HomeChat';
 import FindValentine from './components/FindValentine/FindValentine';
@@ -16,7 +15,7 @@ import UserProfile from './components/profilecard/UserProfile'
 import ChatPage from './components/Home/ChatPage';
 
 function App() {
-  const[{user,userInfo} , dispatch] = useStateValue();
+  const[{user} , dispatch] = useStateValue();
   
   useEffect(() => {
     
