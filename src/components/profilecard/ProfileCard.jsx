@@ -11,8 +11,8 @@ import { useHistory } from "react-router-dom";
 import { useStateValue } from "../../StateProvider";
 import db from "../../firebase";
 import firebase from "firebase";
-import CircularProgress from '@mui/material/CircularProgress';
-import Box from '@mui/material/Box';
+// import CircularProgress from '@mui/material/CircularProgress';
+import Loading from "../Loading/Loading";
 // import PassionPopup from './PassionPopup'
 // import { useStateValue } from '../../StateProvider';
 
@@ -562,9 +562,7 @@ function ProfileCard({ data }) {
   return (
     <>
       {loading ?
-        <Box sx={{ display: 'flex' }}>
-          <CircularProgress />
-        </Box>
+       <Loading/>
         :
         <>
           {ratepopUp &&
