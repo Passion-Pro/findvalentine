@@ -14,7 +14,7 @@ import HomeChat from './components/Home/HomeChat';
 import FindValentine from './components/FindValentine/FindValentine';
 
 function App() {
-  const[{user} , dispatch] = useStateValue();
+  const[{user,userInfo} , dispatch] = useStateValue();
   
   useEffect(() => {
     auth.onAuthStateChanged((auth) => {
@@ -29,24 +29,28 @@ function App() {
 
   useEffect(() => {
     if (user?.uid) {
-      db.collection("boys")
+        db.collection("boys")
         .doc(user?.uid)
         .onSnapshot((snapshot) => {
-          dispatch({
-            type: actionTypes.SET_USERINFO,
-            userInfo: snapshot.data(),
-          })
-        });
-      db.collection("girls")
-        .doc(user?.uid)
-        .onSnapshot((snapshot) => {
-          dispatch({
-            type: actionTypes.SET_USERINFO,
-            userInfo: snapshot.data(),
-          })
-        });
-    }
-  }, [user?.uid]);
+          if(snapshot.data()){
+            dispatch({
+              type: actionTypes.SET_USERINFO,
+              userInfo: snapshot.data(),
+            })
+          }
+        })
+            db.collection("girls")
+            .doc(user?.uid)
+            .onSnapshot((snapshot) => {
+              if(snapshot.data()){
+              dispatch({
+                type: actionTypes.SET_USERINFO,
+                userInfo: snapshot.data(),
+              })
+            }
+            });
+          }
+  }, [user]);
 
   return (
     <div className="App">
