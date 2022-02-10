@@ -14,6 +14,7 @@ import { useStateValue } from "../../StateProvider";
 import { actionTypes } from "../../reducer";
 import firebase from "firebase";
 import Message from "./Message";
+import Nodata from "../Nodata/Nodata";
 
 function HomeChat() {
   const [chosenEmoji, setChosenEmoji] = useState(null);
@@ -156,10 +157,10 @@ function HomeChat() {
       <Header />
       <HeaderSecond />
       <Container>
-        <div className="chatIN">
+        {chats?.length > 0 ? (<div className="chatIN">
           <div className="chat_names">
             <div className="chat_header">
-              <p>Chats</p>
+              <p>{chats?.length > 0 ? 'Chats' : 'No Chats'}</p>
             </div>
             <div className="names">
               {chats.map((chat) => (
@@ -200,7 +201,11 @@ function HomeChat() {
             </div>
             {openEmojis === true && <Picker onEmojiClick={onEmojiClick} />}
           </div>
-        </div>
+        </div>) : (
+            <div className="chatIN">
+               <Nodata/>
+            </div>
+        )}
       </Container>
     </div>
   );

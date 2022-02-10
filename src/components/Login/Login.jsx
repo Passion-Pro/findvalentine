@@ -11,7 +11,28 @@ function Login() {
     const [password, setPassword] = useState();
     const [{ user }, dispatch] = useStateValue();
     const history = useHistory();
-
+    
+    // const forgotNumber=()=>{
+      const ResetPassword = () => {
+        if (email) {
+          auth.
+            sendPasswordResetEmail(email)
+            .then(() => {
+              // Password reset email sent!
+              alert('Password reset email sent!')
+            })
+            .catch((error) => {
+              const errorCode = error.code;
+              console.log(errorCode);
+              const errorMessage = error.message;
+              alert(errorMessage)
+              // ..
+            });
+        }else{
+          alert('Enter email')
+        }
+      }
+    // }
 
     const sign_in = (e) => {
         e.preventDefault();
@@ -104,7 +125,7 @@ function Login() {
                             </div>
                         </div>
                     </form>
-                    <a className="forgot_password" >Forgot Password?</a>
+                    <a className="forgot_password" onClick={ResetPassword}>Forgot Password?</a>
                     <a href="/signup" className="new_account">Create a new account</a>
                 </div>
             </Container>
