@@ -30,77 +30,6 @@ function SignUp() {
         }
     }
 
-    // useEffect(() => {
-    //     if (runFunction) {
-    //         setLoading(true);
-    //         if (name && email && password && gender && image) {
-    //             auth
-    //                 .createUserWithEmailAndPassword(email, password)
-    //                 .then((auth) => {
-
-    //                     if (auth) {
-    //                         dispatch({
-    //                             type: actionTypes.SET_USER,
-    //                             user: auth?.user,
-    //                         });
-    //                         const id = uuid();
-    //                         const upload = storage.ref(`images`).child(id).put(image);
-
-    //                         upload.on(
-    //                             "state_changed",
-    //                             (snapshot) => {
-    //                                 const progress =
-    //                                     (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-
-    //                                 console.log(`Progress : ${progress}%`);
-    //                                 if (snapshot.state === "RUNNING") {
-    //                                     console.log(`Progress : ${progress}%`);
-    //                                 }
-    //                             },
-    //                             (error) => console.log(error),
-    //                             async () => {
-    //                                 await upload.snapshot.ref.getDownloadURL().then((url) => {
-    //                                     if (gender === 'male') {
-    //                                         db.collection('boys').doc(auth.user.uid).set({
-    //                                             name: name,
-    //                                             email: email,
-    //                                             password: password,
-    //                                             profilePhotoUrl: url,
-    //                                             gender: gender,
-    //                                             imageId: id,
-    //                                             timestamp: firebase.firestore.FieldValue.serverTimestamp(),
-    //                                             uid: auth.user.uid
-    //                                         })
-    //                                     }
-    //                                     else {
-    //                                         db.collection('girls').doc(auth.user.uid).set({
-    //                                             name: name,
-    //                                             email: email,
-    //                                             password: password,
-    //                                             profilePhotoUrl: url,
-    //                                             gender: gender,
-    //                                             imageId: id,
-    //                                             timestamp: firebase.firestore.FieldValue.serverTimestamp(),
-    //                                             uid: auth.user.uid
-    //                                         })
-    //                                     }
-    //                                 })
-    //                                     .then(() => {
-    //                                         history.push('/')
-    //                                     })
-    //                             }
-    //                         )
-
-    //                     }
-    //                 })
-    //                 .catch((error) => alert(error.message));
-    //         } else {
-    //             alert('Please enter complete details.')
-    //             setLoading(false);
-    //         }
-    //     }
-    // }, [runFunction]);
-
     const createAccount = (e) => {
         setLoading(true);
         if (name && email && password && gender && image) {
@@ -133,8 +62,7 @@ function SignUp() {
                                     if (gender === 'male') {
                                         db.collection('boys').doc(auth.user.uid).set({
                                             name: name,
-                                            email: email,
-                                            password: password,
+                                            email: user?.email,
                                             profilePhotoUrl: url,
                                             gender: gender,
                                             imageId: id,
@@ -145,8 +73,7 @@ function SignUp() {
                                     else {
                                         db.collection('girls').doc(auth.user.uid).set({
                                             name: name,
-                                            email: email,
-                                            password: password,
+                                            email: user?.email,
                                             profilePhotoUrl: url,
                                             gender: gender,
                                             imageId: id,
@@ -200,10 +127,10 @@ function SignUp() {
                                 value={name}
                                 onChange={(e) => setName(e.target.value)}
                             />
-                            <input type="text" placeholder='Enter Your Email Address'
+                            {/* <input type="text" placeholder='Enter Your Email Address'
                                 value={email}
                                 onChange={(e) => setEmail(e.target.value)}
-                            />
+                            /> */}
                             <input type="password" placeholder='Enter Your Password'
                                 value={password}
                                 onChange={(e) => {

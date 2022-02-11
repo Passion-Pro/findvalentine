@@ -15,12 +15,13 @@ import UserProfile from './components/profilecard/UserProfile'
 import ChatPage from './components/Home/ChatPage';
 import Help from './components/Help/Help';
 import ValentinePopUp from './components/profilecard/ValentinePopUp';
+import Loginwithsignin from './components/Login/Loginwithsignin';
 
 function App() {
-  const [{ user, showPop, showPopIn }, dispatch] = useStateValue();
+  const [{ user, userInfo, showPop, showPopIn }, dispatch] = useStateValue();
   const history = useHistory();
 
-  console.log("first",showPop,showPopIn)
+  console.log("first", showPop, showPopIn)
 
   useEffect(() => {
 
@@ -70,46 +71,49 @@ function App() {
     }}>
       <Router>
         <Switch>
-          <Route path="/signup">
-            {<SignUp />}
-          </Route>
-          <Route path="/signin">
-            {<Login />}
-          </Route>
-
-          <Route path="/userProfile">
-            {user?.email ? <UserProfile /> : <Login />}
-          </Route>
-          <Route path="/help">
-            {user?.email ? <Help /> : <Login />}
-          </Route>
-          <Route path="/homepreferedBy">
-            {user?.email ? <HomePreferedBy /> : <Login />}
-          </Route>
-          <Route path="/findvalentine">
-            {user?.email ? <FindValentine /> : <Login />}
-          </Route>
-          <Route path="/public">
-            {user?.email ? <Public /> : <Login />}
-          </Route>
-          <Route path="/chat/:chatId">
-            {user?.email ? <HomeChat /> : <Login />}
-          </Route>
-          <Route path="/chat">
-            {user?.email ? <HomeChat /> : <Login />}
-          </Route>
-          <Route path="/chatMobile/:chatId">
-            {user?.email ? <ChatPage /> : <Login />}
-          </Route>
-          <Route path="/profilePop/:popId">
-            {user?.email ? <ValentinePopUp /> : <Login />}
-          </Route>
-          <Route path="/public">
-            <Public />
-          </Route>
-          <Route path="/">
-            {user?.email ? <Home /> : <Login />}
-          </Route>
+            <>
+              {/* <Route path="/signup"> */}
+                {/* {user ? !userInfo?.email && <SignUp/>:<> */}
+              
+              {/* <Route path="/signin">
+                {<Login />}
+              </Route> */}
+              <Route path="/userProfile">
+                {user?.email ? <UserProfile /> : <Login />}
+              </Route>
+              <Route path="/help">
+                {user?.email ? <Help /> : <Login />}
+              </Route>
+              <Route path="/homepreferedBy">
+                {user?.email ? <HomePreferedBy /> : <Login />}
+              </Route>
+              <Route path="/findvalentine">
+                {user?.email ? <FindValentine /> : <Login />}
+              </Route>
+              <Route path="/public">
+                {user?.email ? <Public /> : <Login />}
+              </Route>
+              <Route path="/chat/:chatId">
+                {user?.email ? <HomeChat /> : <Login />}
+              </Route>
+              <Route path="/chat">
+                {user?.email ? <HomeChat /> : <Login />}
+              </Route>
+              <Route path="/chatMobile/:chatId">
+                {user?.email ? <ChatPage /> : <Login />}
+              </Route>
+              <Route path="/profilePop/:popId">
+                {user?.email ? <ValentinePopUp /> : <Login />}
+              </Route>
+              <Route path="/public">
+                <Public />
+              </Route>
+              <Route path="/">
+                {user?.email ? <Home /> : <Login />}
+              </Route>
+            {/* </>} */}
+            {/* : <SignUp /> : <Loginwithsignin /> */}
+            </>
         </Switch>
       </Router>
     </div>
@@ -117,3 +121,7 @@ function App() {
 }
 
 export default App;
+{/* </Route> */}
+              {/* <Route path="/signup">
+                {<SignUp />}
+              </Route> */}

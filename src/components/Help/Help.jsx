@@ -14,8 +14,8 @@ function Help() {
                         display: 'flex', fontWeight: "600", fontSize: 'large',
                     }}>Help</div>
                     <p>Please feel free to express your thoughts at </p>
-                    <div>
-                        Email : <a href={"www.gmail.com"}>passionultrapro@gmail.com</a>
+                    <div style={{display:"flex"}}>
+                        Email : <div style={{paddingLeft:'8px'}}> {' '}passionultrapro@gmail.com</div>
                     </div>
                     <span style={{ display: 'flex', fontWeight: '600', fontFamily: "serif", padding: '12px 4px' }}>Created by Nishant and Ronak ❤️</span>
                 </div>
