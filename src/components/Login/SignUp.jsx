@@ -30,91 +30,143 @@ function SignUp() {
         }
     }
 
-    useEffect(() => {
-        if (runFunction) {
-            setLoading(true);
-            if (name && email && password && gender && image) {
-                auth
-                    .createUserWithEmailAndPassword(email, password)
-                    .then((auth) => {
+    // useEffect(() => {
+    //     if (runFunction) {
+    //         setLoading(true);
+    //         if (name && email && password && gender && image) {
+    //             auth
+    //                 .createUserWithEmailAndPassword(email, password)
+    //                 .then((auth) => {
 
-                        if (auth) {
-                            dispatch({
-                                type: actionTypes.SET_USER,
-                                user: auth?.user,
-                            });
-                            const id = uuid();
-                            const upload = storage.ref(`images`).child(id).put(image);
+    //                     if (auth) {
+    //                         dispatch({
+    //                             type: actionTypes.SET_USER,
+    //                             user: auth?.user,
+    //                         });
+    //                         const id = uuid();
+    //                         const upload = storage.ref(`images`).child(id).put(image);
 
-                            upload.on(
-                                "state_changed",
-                                (snapshot) => {
-                                    const progress =
-                                        (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+    //                         upload.on(
+    //                             "state_changed",
+    //                             (snapshot) => {
+    //                                 const progress =
+    //                                     (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
 
-                                    console.log(`Progress : ${progress}%`);
-                                    if (snapshot.state === "RUNNING") {
-                                        console.log(`Progress : ${progress}%`);
-                                    }
-                                },
-                                (error) => console.log(error),
-                                async () => {
-                                    await upload.snapshot.ref.getDownloadURL().then((url) => {
-                                        if (gender === 'male') {
-                                            db.collection('boys').doc(auth.user.uid).set({
-                                                name: name,
-                                                email: email,
-                                                password: password,
-                                                profilePhotoUrl: url,
-                                                gender: gender,
-                                                imageId: id,
-                                                timestamp: firebase.firestore.FieldValue.serverTimestamp(),
-                                                uid: auth.user.uid
-                                            })
-                                        }
-                                        else {
-                                            db.collection('girls').doc(auth.user.uid).set({
-                                                name: name,
-                                                email: email,
-                                                password: password,
-                                                profilePhotoUrl: url,
-                                                gender: gender,
-                                                imageId: id,
-                                                timestamp: firebase.firestore.FieldValue.serverTimestamp(),
-                                                uid: auth.user.uid
-                                            })
-                                        }
-                                    })
-                                        .then(() => {
-                                            history.push('/')
-                                        })
-                                }
-                            )
+    //                                 console.log(`Progress : ${progress}%`);
+    //                                 if (snapshot.state === "RUNNING") {
+    //                                     console.log(`Progress : ${progress}%`);
+    //                                 }
+    //                             },
+    //                             (error) => console.log(error),
+    //                             async () => {
+    //                                 await upload.snapshot.ref.getDownloadURL().then((url) => {
+    //                                     if (gender === 'male') {
+    //                                         db.collection('boys').doc(auth.user.uid).set({
+    //                                             name: name,
+    //                                             email: email,
+    //                                             password: password,
+    //                                             profilePhotoUrl: url,
+    //                                             gender: gender,
+    //                                             imageId: id,
+    //                                             timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+    //                                             uid: auth.user.uid
+    //                                         })
+    //                                     }
+    //                                     else {
+    //                                         db.collection('girls').doc(auth.user.uid).set({
+    //                                             name: name,
+    //                                             email: email,
+    //                                             password: password,
+    //                                             profilePhotoUrl: url,
+    //                                             gender: gender,
+    //                                             imageId: id,
+    //                                             timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+    //                                             uid: auth.user.uid
+    //                                         })
+    //                                     }
+    //                                 })
+    //                                     .then(() => {
+    //                                         history.push('/')
+    //                                     })
+    //                             }
+    //                         )
 
-                        }
-                    })
-                    .catch((error) => alert(error.message));
-            } else {
-                alert('Please enter complete details.')
-                setLoading(false);
-            }
-        }
-    }, [runFunction]);
+    //                     }
+    //                 })
+    //                 .catch((error) => alert(error.message));
+    //         } else {
+    //             alert('Please enter complete details.')
+    //             setLoading(false);
+    //         }
+    //     }
+    // }, [runFunction]);
 
     const createAccount = (e) => {
-        setLoading(false);
-        var str = '.iitr.ac.in';
-        for (var i = 0; i < 11; i++) {
-            if (email[email.length - 1 - i] == str[str.length - 1 - i]) {
-                setVerify(true);
-                if (email[email.length - 11] == str[str.length - 11]) {
-                    setRunFunction(true);
-                }
-            } else {
-                setVerify(false);
-                setRunFunction(true);
-                break;
-            }
+        setLoading(true);
+        if (name && email && password && gender && image) {
+            auth
+                .createUserWithEmailAndPassword(email, password)
+                .then((auth) => {
+
+                    if (auth) {
+                        dispatch({
+                            type: actionTypes.SET_USER,
+                            user: auth?.user,
+                        });
+                        const id = uuid();
+                        const upload = storage.ref(`images`).child(id).put(image);
+
+                        upload.on(
+                            "state_changed",
+                            (snapshot) => {
+                                const progress =
+                                    (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+
+                                console.log(`Progress : ${progress}%`);
+                                if (snapshot.state === "RUNNING") {
+                                    console.log(`Progress : ${progress}%`);
+                                }
+                            },
+                            (error) => console.log(error),
+                            async () => {
+                                await upload.snapshot.ref.getDownloadURL().then((url) => {
+                                    if (gender === 'male') {
+                                        db.collection('boys').doc(auth.user.uid).set({
+                                            name: name,
+                                            email: email,
+                                            password: password,
+                                            profilePhotoUrl: url,
+                                            gender: gender,
+                                            imageId: id,
+                                            timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+                                            uid: auth.user.uid
+                                        })
+                                    }
+                                    else {
+                                        db.collection('girls').doc(auth.user.uid).set({
+                                            name: name,
+                                            email: email,
+                                            password: password,
+                                            profilePhotoUrl: url,
+                                            gender: gender,
+                                            imageId: id,
+                                            timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+                                            uid: auth.user.uid
+                                        })
+                                    }
+                                })
+                                    .then(() => {
+                                        history.push('/')
+                                    })
+                            }
+                        )
+
+                    }
+                })
+                .catch((error) => alert(error.message));
+        } else {
+            alert('Please fill all data and choose image.')
+            setLoading(false);
         }
     }
     return (
@@ -125,11 +177,11 @@ function SignUp() {
                 <div className="signUp">
                     <div className="signUp_in">
                         <label htmlFor="image">
-                      <div style={{display:"flex",alignItem:'center'}}> <p style={{paddingRight:"8px",color:'gray'}}><AddAPhotoRoundedIcon/></p><p className='upload_photo'>Upload Your Photo</p>
-                      </div> 
+                            <div style={{ display: "flex", alignItem: 'center' }}> <p style={{ paddingRight: "8px", color: 'gray' }}><AddAPhotoRoundedIcon /></p><p className='upload_photo'>Upload Your Photo</p>
+                            </div>
                         </label>
                         <input
-                            type="file"help__In
+                            type="file" help__In
                             style={{
                                 display: "none",
                             }}
@@ -182,13 +234,13 @@ function SignUp() {
                                 <div>
                                 </div>
                             </div>
-                            <div style={{ display: 'flex',flexDirection:'column', width: '100%', maxWidth: '500px', justifyContent: 'space-around',alignItems:"center" }}>
+                            <div style={{ display: 'flex', flexDirection: 'column', width: '100%', maxWidth: '500px', justifyContent: 'space-around', alignItems: "center" }}>
                                 <Button variant="contained" style={{ width: '95%' }} onClick={createAccount}>Create Account</Button>
                                 {/* <Button variant="contained" style={{ width: '45%' }} onClick={()=>"/signin"}>Sign in</Button> */}
-                                <div style={{display:"flex",padding:'6px 0'}} onClick={()=>history.push('/signin')}>
-                                Already have account <div style={{paddingLeft:'8px',color:"blue",fontWeight:'600',cursor:"pointer"}} >Sign in</div>
-                            </div>
+                                <div style={{ display: "flex", padding: '6px 0' }} onClick={() => history.push('/signin')}>
+                                    Already have account <div style={{ paddingLeft: '8px', color: "blue", fontWeight: '600', cursor: "pointer" }} >Sign in</div>
                                 </div>
+                            </div>
                         </div>
                     </div>
                 </div>

@@ -15,20 +15,20 @@ import Loading from "../Loading/Loading";
 import { actionTypes } from "../../reducer";
 
 function ProfileCard({ data }) {
-  const [{ user, userInfo,showPop }, dispatch] = useStateValue();
+  const [{ user, userInfo,showPop,showPopIn }, dispatch] = useStateValue();
 
   const history = useHistory();
   const [ratepopUp, setRatePopUp] = useState(false);
   const [alreadyRated, setAlreadyRated] = useState('');
   const [loading, setLoading] = useState(false);
 
-  useState(() => {
+  useEffect(() => {
     if (userInfo?.gender) {
       db.collection(userInfo?.gender == 'male' ? 'boys' : 'girls').doc(user?.uid).collection("Preference").where('email', '==', data?.data?.email).get()
         .then((querySnapshot) => {
           querySnapshot.forEach((doc) => {
             setAlreadyRated(doc?.id)
-            console.log(doc?.id)
+            // console.log(doc?.id)
           });
         })
         .catch((error) => {
@@ -96,25 +96,6 @@ function ProfileCard({ data }) {
           setRatePopUp(false)
           setLoading(false);
         })
-      // if (userInfo?.gender === 'male') {
-      //   db.collection('boys').doc(user.uid).update({
-      //     timestamp: firebase.firestore.FieldValue.serverTimestamp(),
-      //   }).then(() => {
-      //     setRatePopUp(false)
-      //     setLoading(false);
-      //   })
-      // }
-      // else {
-      //   db.collection('girls').doc(user.uid).update({
-      //     timestamp: firebase.firestore.FieldValue.serverTimestamp(),
-      //   }).then(() => {
-      //     setRatePopUp(false)
-      //     setLoading(false);
-      //   })
-      //   .catch((error) => {
-      //     alert("Error", error.message);
-      //     setRatePopUp(false);
-      //   });
       if (userInfo?.gender === "male") {
         db.collection("boys")
           .doc(user.uid)
@@ -184,45 +165,7 @@ function ProfileCard({ data }) {
       setLoading(false);
     }
   };
-  //       })
-  //       .then(() => {
-  //         db.collection(data?.data?.gender == "male" ? "boys" : "girls")
-  //           .doc(data?.data?.uid)
-  //           .collection("Preferenceby")
-  //           .add({
-  //             email: data?.data?.email,
-  //             gender: data?.data?.gender,
-  //             name: data?.data?.name,
-  //             rateN: 6,
-  //             rate: "Take a chance",
-  //             profilePhotoUrl: data?.data?.profilePhotoUrl,
-  //           });
-  //       });
-  //     if (userInfo?.gender === "male") {
-  //       db.collection("boys")
-  //         .doc(user.uid)
-  //         .update({
-  //           timestamp: firebase.firestore.FieldValue.serverTimestamp(),
-  //         })
-  //         .then(() => {
-  //           setRatePopUp(false);
-  //         });
-  //     } else {
-  //       db.collection("girls")
-  //         .doc(user.uid)
-  //         .update({
-  //           timestamp: firebase.firestore.FieldValue.serverTimestamp(),
-  //         })
-  //         .then(() => {
-  //           setRatePopUp(false);
-  //         });
-  //     }
-  //   } else {
-  //     alert('Something went wrong!')
-  //     setRatePopUp(false)
-  //     setLoading(false);
-  //   }
-  // };
+
   const bestfriend = () => {
     if (userInfo?.gender) {
       setLoading(true);
@@ -267,45 +210,7 @@ function ProfileCard({ data }) {
       setRatePopUp(false)
     }
   };
-  // })
-  //       .then(() => {
-  //         db.collection(data?.data?.gender == "male" ? "boys" : "girls")
-  //           .doc(data?.data?.uid)
-  //           .collection("Preferenceby")
-  //           .add({
-  //             email: data?.data?.email,
-  //             rateN: 5,
-  //             gender: data?.data?.gender,
-  //             name: data?.data?.name,
-  //             rate: "Take a chance",
-  //             profilePhotoUrl: data?.data?.profilePhotoUrl,
-  //           });
-  //       });
-  //     if (userInfo?.gender === "male") {
-  //       db.collection("boys")
-  //         .doc(user.uid)
-  //         .update({
-  //           timestamp: firebase.firestore.FieldValue.serverTimestamp(),
-  //         })
-  //         .then(() => {
-  //           setRatePopUp(false);
-  //         });
-  //     } else {
-  //       db.collection("girls")
-  //         .doc(user.uid)
-  //         .update({
-  //           timestamp: firebase.firestore.FieldValue.serverTimestamp(),
-  //         })
-  //         .then(() => {
-  //           setRatePopUp(false);
-  //         });
-  //     }
-  //   } else {
-  //     alert('Something went wrong!')
-  //     setRatePopUp(false)
-  //     setRatePopUp(false)
-  //   }
-  // };
+  
   const friend = () => {
     if (userInfo?.gender) {
       setLoading(true);
@@ -333,7 +238,6 @@ function ProfileCard({ data }) {
           timestamp: firebase.firestore.FieldValue.serverTimestamp(),
         }).then(() => {
           setRatePopUp(false);
-          setRatePopUp(false)
         })
       }
       else {
@@ -341,54 +245,14 @@ function ProfileCard({ data }) {
           timestamp: firebase.firestore.FieldValue.serverTimestamp(),
         }).then(() => {
           setRatePopUp(false)
-          setRatePopUp(false)
         });
       }
     } else {
       alert('Something went wrong!')
       setRatePopUp(false)
-      setRatePopUp(false)
     }
   };
-  // })
-  //       .then(() => {
-  //         db.collection(data?.data?.gender == "male" ? "boys" : "girls")
-  //           .doc(data?.data?.uid)
-  //           .collection("Preferenceby")
-  //           .add({
-  //             email: data?.data?.email,
-  //             rateN: 4,
-  //             gender: data?.data?.gender,
-  //             name: data?.data?.name,
-  //             rate: "Friend",
-  //             profilePhotoUrl: data?.data?.profilePhotoUrl,
-  //           });
-  //       });
-  //     if (userInfo?.gender === "male") {
-  //       db.collection("boys")
-  //         .doc(user.uid)
-  //         .update({
-  //           timestamp: firebase.firestore.FieldValue.serverTimestamp(),
-  //         })
-  //         .then(() => {
-  //           setRatePopUp(false);
-  //         });
-  //     } else {
-  //       db.collection("girls")
-  //         .doc(user.uid)
-  //         .update({
-  //           timestamp: firebase.firestore.FieldValue.serverTimestamp(),
-  //         })
-  //         .then(() => {
-  //           setRatePopUp(false);
-  //         });
-  //     }
-  //   } else {
-  //     alert('Something went wrong!')
-  //     setRatePopUp(false)
-  //     setRatePopUp(false)
-  //   }
-  // };
+  
   const meraBahi = () => {
     if (userInfo?.gender) {
       setRatePopUp(true)
@@ -432,44 +296,7 @@ function ProfileCard({ data }) {
       setRatePopUp(false);
     }
   };
-  //   })
-  //   .then(() => {
-  //     db.collection(data?.data?.gender == "male" ? "boys" : "girls")
-  //       .doc(data?.data?.uid)
-  //       .collection("Preferenceby")
-  //       .add({
-  //         email: data?.data?.email,
-  //         gender: data?.data?.gender,
-  //         rateN: 3,
-  //         name: data?.data?.name,
-  //         rate: data?.data?.gender ? "Mera Bhai" : "Meri Bahen",
-  //         profilePhotoUrl: data?.data?.profilePhotoUrl,
-  //       });
-  //   });
-  // if (userInfo?.gender === "male") {
-  //   db.collection("boys")
-  //     .doc(user.uid)
-  //     .update({
-  //       timestamp: firebase.firestore.FieldValue.serverTimestamp(),
-  //     })
-  //     .then(() => {
-  //       setRatePopUp(false);
-  //     });
-  // } else {
-  //   db.collection("girls")
-  //     .doc(user.uid)
-  //     .update({
-  //       timestamp: firebase.firestore.FieldValue.serverTimestamp(),
-  //     })
-  //     .then(() => {
-  //       setRatePopUp(false);
-  //         });
-  //     }
-  //   } else {
-  //     alert("Something went wrong!");
-  //     setRatePopUp(false);
-  //   }
-  // };
+  
   const notInterested = () => {
     if (userInfo?.gender) {
       setLoading(true);
@@ -511,49 +338,12 @@ function ProfileCard({ data }) {
       setLoading(false)
     }
   };
-  //       })
-  //       .then(() => {
-  //         db.collection(data?.data?.gender == "male" ? "boys" : "girls")
-  //           .doc(data?.data?.uid)
-  //           .collection("Preferenceby")
-  //           .add({
-  //             email: data?.data?.email,
-  //             gender: data?.data?.gender,
-  //             name: data?.data?.name,
-  //             rateN: 2,
-  //             rate: "Not Interested",
-  //             profilePhotoUrl: data?.data?.profilePhotoUrl,
-  //           });
-  //       });
-  //     if (userInfo?.gender === "male") {
-  //       db.collection("boys")
-  //         .doc(user.uid)
-  //         .update({
-  //           timestamp: firebase.firestore.FieldValue.serverTimestamp(),
-  //         })
-  //         .then(() => {
-  //           setRatePopUp(false);
-  //         });
-  //     } else {
-  //       db.collection("girls")
-  //         .doc(user.uid)
-  //         .update({
-  //           timestamp: firebase.firestore.FieldValue.serverTimestamp(),
-  //         })
-  //         .then(() => {
-  //           setRatePopUp(false);
-  //         });
-  //     }
-  //   } else {
-  //     alert('Something went wrong!');
-  //     setLoading(false)
-  //   }
-  // };
   const skip = () => {
+    console.log(data?.data?.uid,"?????? skip",data?.id)
     if (userInfo?.gender) {
       setLoading(true)
       if (userInfo?.gender === 'male') {
-        db.collection('boys').doc(user.uid).update({
+        db.collection('girls').doc(data?.data?.uid).update({
           timestamp: firebase.firestore.FieldValue.serverTimestamp(),
         }).then(() => {
           setRatePopUp(false);
@@ -561,7 +351,7 @@ function ProfileCard({ data }) {
         })
       }
       else {
-        db.collection('girls').doc(user.uid).update({
+        db.collection('boys').doc(data?.data?.uid).update({
           timestamp: firebase.firestore.FieldValue.serverTimestamp(),
         }).then(() => {
           setRatePopUp(false)
@@ -573,54 +363,23 @@ function ProfileCard({ data }) {
       setLoading(false)
     }
   }
+  useEffect(()=>{
+    dispatch({
+      type: actionTypes.SET_SHOW_POP,
+      showPop: true,
+    })
+    dispatch({
+      type: actionTypes.SET_SHOW_POP_IN,
+      showPopIn: false,
+    })
+  },[])
+
   return (
     <>
       {loading ?
        <Loading/>
         :
         <>
-          {showPop &&
-            <Container>
-              <div className="passionPopup">
-                <div className="passion_list">
-                  <div className="Card_popUp__list_V" onClick={alreadyRated != '' ? () => {
-                    alert("You already choose one.")
-                  } : yourValentine}>
-                    My Valentine
-                  </div>
-                  <div className="Card_popUp__list_TC"
-                    onClick={alreadyRated != '' ? () => {
-                      alert("You already choose one.")
-                    } : takeChance}>
-                    Take a chance
-                  </div>
-                  <div className="Card_popUp__list_BF" onClick={alreadyRated != '' ? () => {
-                    alert("You already choose one.")
-                  } : bestfriend}>
-                    Best Friend
-                  </div>
-                  <div className="Card_popUp__list_F" onClick={alreadyRated != '' ? () => {
-                    alert("You already choose one.")
-                  } : friend}>
-                    Friend
-                  </div>
-                  <div className="Card_popUp__list_MB" onClick={alreadyRated != '' ? () => {
-                    alert("You already choose one.")
-                  } : meraBahi}>
-                    {data?.data?.gender == "female" ? "Mera Bhai" : "Meri Bahen"}
-                  </div>
-                  <div className="Card_popUp__list_NI" onClick={alreadyRated != '' ? () => {
-                    alert("You already choose one.")
-                  } : notInterested}>
-                    Not Interested
-                  </div>
-                  <div className="Card_popUp__list_S" onClick={skip}>
-                    Skip
-                  </div>
-                </div>
-              </div>
-            </Container>
-          }
           <Card className='profilecard'>
             <CardActionArea>
               <CardMedia
@@ -637,9 +396,11 @@ function ProfileCard({ data }) {
                 <div className="card__Button">
                   <button onClick={() => {
                     dispatch({
-                      type: actionTypes.SET_SHOW_POP,
-                      showPop: true,
+                      type: actionTypes.SET_SHOW_POP_IN,
+                      showPopIn: true,
                     })
+                    console.log("/////",showPopIn)
+                    history.push(`/profilePop/${data?.id}`)
                   }}>
                     Preference
                   </button>
@@ -750,3 +511,47 @@ const Container = styled.div`
     }
   }
 `;
+
+
+// {showPop &&
+//   <Container>
+//     <div className="passionPopup">
+//       <div className="passion_list">
+//         <div className="Card_popUp__list_V" onClick={alreadyRated != '' ? () => {
+//           alert("You already choose one.")
+//         } : yourValentine}>
+//           My Valentine
+//         </div>
+//         <div className="Card_popUp__list_TC"
+//           onClick={alreadyRated != '' ? () => {
+//             alert("You already choose one.")
+//           } : takeChance}>
+//           Take a chance
+//         </div>
+//         <div className="Card_popUp__list_BF" onClick={alreadyRated != '' ? () => {
+//           alert("You already choose one.")
+//         } : bestfriend}>
+//           Best Friend
+//         </div>
+//         <div className="Card_popUp__list_F" onClick={alreadyRated != '' ? () => {
+//           alert("You already choose one.")
+//         } : friend}>
+//           Friend
+//         </div>
+//         {/* <div className="Card_popUp__list_MB" onClick={alreadyRated != '' ? () => {
+//           alert("You already choose one.")
+//         } : meraBahi}>
+//           {data?.data?.gender == "female" ? "Mera Bhai" : "Meri Bahen"}
+//         </div> */}
+//         <div className="Card_popUp__list_NI" onClick={alreadyRated != '' ? () => {
+//           alert("You already choose one.")
+//         } : notInterested}>
+//           Not Interested
+//         </div>
+//         <div className="Card_popUp__list_S" onClick={skip}>
+//           Skip
+//         </div>
+//       </div>
+//     </div>
+//   </Container>
+// }

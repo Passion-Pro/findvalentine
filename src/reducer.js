@@ -1,13 +1,15 @@
 export const initialState = {
      user : null,
      userInfo:null,
-     showPop:false,
+     showPop:true,
+     showPopIn:false,
   };
   
   export const actionTypes = {
     SET_USER : "SET_USER",
     SET_USERINFO : "SET_USERINFO",
-    SET_SHOW_POP:'SET_SHOW_POP'
+    SET_SHOW_POP:'SET_SHOW_POP',
+    SET_SHOW_POP:'SET_SHOW_POP_IN'
   };
   
   const reducer = (state, action) => {
@@ -17,6 +19,12 @@ export const initialState = {
         return {
           ...state,
           showPop: action.showPop,
+        };
+
+      case actionTypes.SET_SHOW_POP_IN:
+        return {
+          ...state,
+          showPopIn: action.showPopIn,
         };
 
       case actionTypes.SET_USERINFO:
