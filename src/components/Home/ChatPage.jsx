@@ -6,7 +6,6 @@ import ChatName from "./ChatName";
 import Avatar from "@mui/material/Avatar";
 import SendIcon from "@mui/icons-material/Send";
 import InsertEmoticonIcon from "@mui/icons-material/InsertEmoticon";
-import AttachFileIcon from "@mui/icons-material/AttachFile";
 import { useParams, useHistory } from "react-router-dom";
 import Picker from "emoji-picker-react";
 import db from "../../firebase";

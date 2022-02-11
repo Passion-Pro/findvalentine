@@ -200,7 +200,7 @@ function SignUp() {
                                 value={name}
                                 onChange={(e) => setName(e.target.value)}
                             />
-                            <input type="text" placeholder='Enter Your IIT Roorkee Email Address'
+                            <input type="text" placeholder='Enter Your Email Address'
                                 value={email}
                                 onChange={(e) => setEmail(e.target.value)}
                             />

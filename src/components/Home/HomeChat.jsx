@@ -27,6 +27,7 @@ function HomeChat() {
   const [mesages, setMesages] = useState([]);
   const { chatId } = useParams();
   const[chatInfo , setChatInfo] = useState([]);
+  const[profilePhotoUrl ,setProfilePhotoUrl] = useState()
 
   useEffect(() => {
     console.log(userInfo);
@@ -62,6 +63,10 @@ function HomeChat() {
             }))
           )
         );
+
+        db.collection(userInfo?.gender === "female" ? "boys" : "girls").doc(chatId).onSnapshot((snapshot) => {
+          setProfilePhotoUrl(snapshot.data().profilePhotoUrl)}
+        )
 
         db.collection(userInfo?.gender === "male" ? "boys" : "girls")
         .doc(user?.uid)
@@ -174,7 +179,7 @@ function HomeChat() {
             <div className="messages_header">
               <Avatar
                 className="student_avatar"
-                src="https://cdn.britannica.com/66/188766-050-38F1436A/Mark-Zuckerberg-2010.jpg"
+                src= {profilePhotoUrl}
               />
               <p className="name">{chatInfo?.name}</p>
             </div>
