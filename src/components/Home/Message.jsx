@@ -71,7 +71,7 @@ const Container = styled.div`
 display : flex;
 margin-top : 10px;
 margin-bottom : 10px;
-max-width : 50%;
+max-width : 70%;
 margin-left : auto;
 margin-right : 10px;
 justify-content : flex-end;
