@@ -212,6 +212,7 @@ const Container = styled.div`
     display: flex;
     padding: 7px;
     border-bottom: 1px solid lightgray;
+    background-color: #eb1958;
 
     p {
       margin-top: 10px;
@@ -229,15 +230,12 @@ const Container = styled.div`
     ::-webkit-scrollbar {
       display: none;
     }
-
-
-    
-
   }
 
   .chat_section_footer {
     padding: 10px;
     display: flex;
+    background-color: lightgray;
 
     .message_input {
       border: 1px solid lightgray;
@@ -251,11 +249,12 @@ const Container = styled.div`
       outline: 0;
       border: 0;
       height: inherit;
-      margin-left: 5px;
-      padding: 0;
+      margin-left: 2.5px;
+      padding: 5px 10px;
       font-size: 18px;
       width: 100%;
-      padding-right: 10px;
+      /* padding-right: 10px; */
+      border-radius: 20px;
     }
 
     .emoji_icon {
