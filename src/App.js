@@ -16,10 +16,11 @@ import ChatPage from './components/Home/ChatPage';
 import Help from './components/Help/Help';
 import ValentinePopUp from './components/profilecard/ValentinePopUp';
 import Loginwithsignin from './components/Login/Loginwithsignin';
+import UpdateUserProfile from './components/profilecard/UpdateUserProfile';
 
 function App() {
   const [{ user, userInfo, showPop, showPopIn }, dispatch] = useStateValue();
-  const history = useHistory();
+  // const history = useHistory();
 
   console.log("first", showPop, showPopIn)
 
@@ -71,49 +72,69 @@ function App() {
     }}>
       <Router>
         <Switch>
-            <>
-              {/* <Route path="/signup"> */}
-                {/* {user ? !userInfo?.email && <SignUp/>:<> */}
-              
-              {/* <Route path="/signin">
-                {<Login />}
-              </Route> */}
-              <Route path="/userProfile">
-                {user?.email ? <UserProfile /> : <Login />}
-              </Route>
-              <Route path="/help">
-                {user?.email ? <Help /> : <Login />}
-              </Route>
-              <Route path="/homepreferedBy">
-                {user?.email ? <HomePreferedBy /> : <Login />}
-              </Route>
-              <Route path="/findvalentine">
-                {user?.email ? <FindValentine /> : <Login />}
-              </Route>
-              <Route path="/public">
-                {user?.email ? <Public /> : <Login />}
-              </Route>
-              <Route path="/chat/:chatId">
-                {user?.email ? <HomeChat /> : <Login />}
-              </Route>
-              <Route path="/chat">
-                {user?.email ? <HomeChat /> : <Login />}
-              </Route>
-              <Route path="/chatMobile/:chatId">
-                {user?.email ? <ChatPage /> : <Login />}
-              </Route>
-              <Route path="/profilePop/:popId">
-                {user?.email ? <ValentinePopUp /> : <Login />}
-              </Route>
-              <Route path="/public">
-                <Public />
-              </Route>
-              <Route path="/">
-                {user?.email ? <Home /> : <Login />}
-              </Route>
-            {/* </>} */}
-            {/* : <SignUp /> : <Loginwithsignin /> */}
-            </>
+          <>
+            {/* <Route path="/signup"> */}
+            {user ? (
+              !userInfo?.email ?
+                (<>
+                  <Route path="/signin">
+                    <Loginwithsignin />
+                  </Route>
+                  <Route path="/">
+                    <SignUp />
+                  </Route>
+                </>
+                )
+                :
+                <>
+                  <Route path="/signup">
+                    <SignUp />
+                  </Route>
+                  <Route path="/update">
+                    <UpdateUserProfile />
+                  </Route>
+                  <Route path="/userProfile">
+                    {user?.email ? <UserProfile /> : <Loginwithsignin />}
+                  </Route>
+                  <Route path="/help">
+                    {user?.email ? <Help /> : <Loginwithsignin />}
+                  </Route>
+                  <Route path="/homepreferedBy">
+                    {user?.email ? <HomePreferedBy /> : <Loginwithsignin />}
+                  </Route>
+                  <Route path="/findvalentine">
+                    {user?.email ? <FindValentine /> : <Loginwithsignin />}
+                  </Route>
+                  <Route path="/public">
+                    {user?.email ? <Public /> : <Loginwithsignin />}
+                  </Route>
+                  <Route path="/chat/:chatId">
+                    {user?.email ? <HomeChat /> : <Loginwithsignin />}
+                  </Route>
+                  <Route exact path="/chat">
+                    {user?.email ? <HomeChat /> : <Loginwithsignin />}
+                  </Route>
+                  <Route exact path="/chatMobile/:chatId">
+                    {user?.email ? <ChatPage /> : <Loginwithsignin />}
+                  </Route>
+                  <Route path="/profilePop/:popId">
+                    {user?.email ? <ValentinePopUp /> : <Loginwithsignin />}
+                  </Route>
+                  <Route path="/signin">
+                    <Loginwithsignin />
+                  </Route>
+                  <Route exact path="/">
+                    {user?.email ? <Home /> : <Loginwithsignin />}
+                  </Route>
+                </>)
+              :
+              <>
+                <Route path="/">
+                  <Loginwithsignin/>
+                </Route>
+              </>
+            }
+          </>
         </Switch>
       </Router>
     </div>
@@ -121,7 +142,7 @@ function App() {
 }
 
 export default App;
-{/* </Route> */}
-              {/* <Route path="/signup">
+{/* </Route> */ }
+{/* <Route path="/signup">
                 {<SignUp />}
               </Route> */}

@@ -18,181 +18,181 @@ import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 
 
 function ChatPage() {
-    const [chosenEmoji, setChosenEmoji] = useState(null);
-    const [openEmojis, setOpenEmojis] = useState(false);
-    const history = useHistory();
-    const [input, setInput] = useState("");
-    const [{ user, userInfo }, dispatch] = useStateValue();
-    const [messages, setMessages] = useState([]);
-    const [chats, setChats] = useState([]);
-    const [mesages, setMesages] = useState([]);
-    const { chatId } = useParams();
-    const[chatInfo , setChatInfo] = useState([]);
-    const[profilePhotoUrl ,setProfilePhotoUrl] = useState();
+  const [chosenEmoji, setChosenEmoji] = useState(null);
+  const [openEmojis, setOpenEmojis] = useState(false);
+  const history = useHistory();
+  const [input, setInput] = useState("");
+  const [{ user, userInfo }, dispatch] = useStateValue();
+  const [messages, setMessages] = useState([]);
+  const [chats, setChats] = useState([]);
+  const [mesages, setMesages] = useState([]);
+  const { chatId } = useParams();
+  const [chatInfo, setChatInfo] = useState([]);
+  const [profilePhotoUrl, setProfilePhotoUrl] = useState();
 
-    useEffect(() => {
-        if (user?.uid && userInfo?.gender && chatId) {
-          db.collection(userInfo?.gender === "male" ? "boys" : "girls")
-            .doc(user?.uid)
-            .collection("chats")
-            .doc(chatId)
-            .collection("messages")
-            .orderBy("timestamp", "desc")
-            .onSnapshot((snapshot) =>
-              setMessages(
-                snapshot.docs.map((doc) => ({
-                  id: doc.id,
-                  data: doc.data(),
-                }))
-              )
-            );
-
-
-    
-            db.collection(userInfo?.gender === "male" ? "boys" : "girls")
-            .doc(user?.uid)
-            .collection("chats")
-            .doc(chatId).onSnapshot((snapshot) => {
-              setChatInfo(snapshot.data());
-            })
+  useEffect(() => {
+    if (user?.uid && userInfo?.gender && chatId) {
+      db.collection(userInfo?.gender === "male" ? "boys" : "girls")
+        .doc(user?.uid)
+        .collection("chats")
+        .doc(chatId)
+        .collection("messages")
+        .orderBy("timestamp", "desc")
+        .onSnapshot((snapshot) =>
+          setMessages(
+            snapshot.docs.map((doc) => ({
+              id: doc.id,
+              data: doc.data(),
+            }))
+          )
+        );
 
 
-        }
-      }, [chatId, user?.uid, userInfo?.gender]);
 
-      useEffect(() => {
-          console.log("ChatInfo is " , chatInfo);
-      } , [chatInfo]);
+      db.collection(userInfo?.gender === "male" ? "boys" : "girls")
+        .doc(user?.uid)
+        .collection("chats")
+        .doc(chatId).onSnapshot((snapshot) => {
+          setChatInfo(snapshot.data());
+        })
 
-      useEffect(() => {
-         if(chatId){
-           db.collection(userInfo?.gender === "female" ? "boys" : "girls").doc(chatId).onSnapshot((snapshot) => {
-             setProfilePhotoUrl(snapshot.data().profilePhotoUrl)
-           })
-         }
-      } , [chatId])
 
-const onEmojiClick = (event, emojiObject) => {
-        setChosenEmoji(emojiObject);
-        setInput(input + emojiObject?.emoji);
-      };
+    }
+  }, [chatId, user?.uid, userInfo?.gender]);
 
-      const send_message = (e) => {
-        e.preventDefault();
-         console.log("ChatId is " , chatId);
-         console.log("My Id is" , user?.uid)
-        if (messages?.length === 0 && chatId && user?.uid && input!== '') {
-          console.log("done1"); 
+  useEffect(() => {
+    console.log("ChatInfo is ", chatInfo);
+  }, [chatInfo]);
+
+  useEffect(() => {
+    if (chatId) {
+      db.collection(userInfo?.gender === "female" ? "boys" : "girls").doc(chatId).onSnapshot((snapshot) => {
+        setProfilePhotoUrl(snapshot.data().profilePhotoUrl)
+      })
+    }
+  }, [chatId])
+
+  const onEmojiClick = (event, emojiObject) => {
+    setChosenEmoji(emojiObject);
+    setInput(input + emojiObject?.emoji);
+  };
+
+  const send_message = (e) => {
+    e.preventDefault();
+    console.log("ChatId is ", chatId);
+    console.log("My Id is", user?.uid)
+    if (messages?.length === 0 && chatId && user?.uid && input !== '') {
+      console.log("done1");
+      db.collection(userInfo?.gender === "female" ? "boys" : "girls")
+        .doc(chatId)
+        .collection("chats")
+        .doc(user?.uid)
+        .set({
+          name: userInfo?.name,
+          email: userInfo?.email,
+        })
+        .then(() => {
+          console.log("done2");
           db.collection(userInfo?.gender === "female" ? "boys" : "girls")
             .doc(chatId)
             .collection("chats")
             .doc(user?.uid)
-            .set({
+            .collection("messages")
+            .add({
+              message: input,
               name: userInfo?.name,
+              timestamp: firebase.firestore.FieldValue.serverTimestamp(),
               email: userInfo?.email,
-            })
-            .then(() => {
-              console.log("done2");
-              db.collection(userInfo?.gender === "female" ? "boys" : "girls")
-                .doc(chatId)
-                .collection("chats")
-                .doc(user?.uid)
-                .collection("messages")
-                .add({
-                  message: input,
-                  name: userInfo?.name,
-                  timestamp: firebase.firestore.FieldValue.serverTimestamp(),
-                  email : userInfo?.email,
-                  gender : userInfo?.gender
-                });
+              gender: userInfo?.gender
             });
-    
-          db.collection(userInfo?.gender === "male" ? "boys" : "girls")
-            .doc(user?.uid)
-            .collection("chats")
-            .doc(chatId)
-            .collection("messages")
-            .add({
-              message: input,
-              name: userInfo?.name,
-              timestamp: firebase.firestore.FieldValue.serverTimestamp(),
-              email : userInfo?.email,
-              gender : userInfo?.gender
-            });
-            setInput('')
-        } else if(chatId && user?.uid && input!== '') {
-          db.collection(userInfo?.gender === "male" ? "boys" : "girls")
-            .doc(user?.uid)
-            .collection("chats")
-            .doc(chatId)
-            .collection("messages")
-            .add({
-              message: input,
-              name: userInfo?.name,
-              timestamp: firebase.firestore.FieldValue.serverTimestamp(),
-              email : userInfo?.email,
-              gender : userInfo?.gender
-            });
-    
-          db.collection(userInfo?.gender === "female" ? "boys" : "girls")
-            .doc(chatId)
-            .collection("chats")
-            .doc(user?.uid)
-            .collection("messages")
-            .add({
-              message: input,
-              name: userInfo?.name,
-              timestamp: firebase.firestore.FieldValue.serverTimestamp(),
-              email : userInfo?.email,
-              gender : userInfo?.gender
-            });
-            setInput('');
-    
-        }
-    
-      };
+        });
+
+      db.collection(userInfo?.gender === "male" ? "boys" : "girls")
+        .doc(user?.uid)
+        .collection("chats")
+        .doc(chatId)
+        .collection("messages")
+        .add({
+          message: input,
+          name: userInfo?.name,
+          timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+          email: userInfo?.email,
+          gender: userInfo?.gender
+        });
+      setInput('')
+    } else if (chatId && user?.uid && input !== '') {
+      db.collection(userInfo?.gender === "male" ? "boys" : "girls")
+        .doc(user?.uid)
+        .collection("chats")
+        .doc(chatId)
+        .collection("messages")
+        .add({
+          message: input,
+          name: userInfo?.name,
+          timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+          email: userInfo?.email,
+          gender: userInfo?.gender
+        });
+
+      db.collection(userInfo?.gender === "female" ? "boys" : "girls")
+        .doc(chatId)
+        .collection("chats")
+        .doc(user?.uid)
+        .collection("messages")
+        .add({
+          message: input,
+          name: userInfo?.name,
+          timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+          email: userInfo?.email,
+          gender: userInfo?.gender
+        });
+      setInput('');
+
+    }
+
+  };
 
 
   return (
     <Container>
-        <div className="messages_header">
-              <ArrowBackIcon onClick={() => {
-                  history.goBack()
-              }}
-               style = {{
-                   marginRight : '10px',
-                   marginTop : 'auto',
-                   marginBottom : 'auto',
-               }}
-              />
-              <Avatar
-                className="student_avatar"
-                src= {profilePhotoUrl}
-              />
-              <p className="name">{chatInfo?.name}</p>
-            </div>
-            <div className="messages_messages">
-               {messages.map((message) => (
-                 <Message message = {message?.data}/>
-               ))}
-            </div>
-            <div className="chat_section_footer">
-              <div className="message_input">
-                <InsertEmoticonIcon
-                  className="emoji_icon"
-                  onClick={(e) => setOpenEmojis(!openEmojis)}
-                />
-                <input
-                  type="text"
-                  value={input}
-                  onChange={(e) => {
-                    setInput(e.target.value);
-                  }}
-                />
-              </div>
-              <SendIcon className="send_icon" onClick={send_message} />
-            </div>
-            {openEmojis === true && <Picker onEmojiClick={onEmojiClick} />}
+      <div className="messages_header">
+        <ArrowBackIcon onClick={() => {
+          history.goBack()
+        }}
+          style={{
+            marginRight: '10px',
+            marginTop: 'auto',
+            marginBottom: 'auto',
+          }}
+        />
+        <Avatar
+          className="student_avatar"
+          src={profilePhotoUrl}
+        />
+        <p className="name">{chatInfo?.name}</p>
+      </div>
+      <div className="messages_messages">
+        {messages.map((message) => (
+          <Message message={message?.data} />
+        ))}
+      </div>
+      <div className="chat_section_footer">
+        <div className="message_input">
+          <InsertEmoticonIcon
+            className="emoji_icon"
+            onClick={(e) => setOpenEmojis(!openEmojis)}
+          />
+          <input
+            type="text"
+            value={input}
+            onChange={(e) => {
+              setInput(e.target.value);
+            }}
+          />
+        </div>
+        <SendIcon className="send_icon" onClick={send_message} />
+      </div>
+      {openEmojis === true && <Picker onEmojiClick={onEmojiClick} />}
     </Container>
 
   )

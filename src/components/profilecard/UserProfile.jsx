@@ -13,10 +13,13 @@ import Header from '../Header/Header';
 import firebase from 'firebase';
 import db, { auth } from '../../firebase';
 import AddAPhotoRoundedIcon from '@mui/icons-material/AddAPhotoRounded';
+import HeaderSecond from '../Header/HeaderSecond';
 
 function UserProfile() {
     const [{ userInfo, user }] = useStateValue();
+    const [name,setName]=React.useState('')
     const [image, setImage] = React.useState(null);
+    const [college,setCollege]=React.useState('');
 
     const history = useHistory();
     const selectImage = (e) => {
@@ -35,6 +38,8 @@ function UserProfile() {
                     if (userInfo?.gender === 'male') {
                         db.collection('boys').doc(user.uid).update({
                             profilePhotoUrl: url,
+                            college:college,
+                            name:name,
                         }).then(()=>{
                             alert("Update successfully")
                         })
@@ -42,6 +47,8 @@ function UserProfile() {
                     else {
                         db.collection('girls').doc(user.uid).update({
                             profilePhotoUrl: url,
+                            name:name,
+                            college:college,
                         }).then(()=>{
                             alert("Update successfully")
                         })
@@ -55,6 +62,7 @@ function UserProfile() {
     return (
         <>
             <Header />
+            <HeaderSecond/>
             <div className='profilecardUser'>
                 <div className="signUp_in">
                     <label htmlFor="image">
@@ -78,7 +86,8 @@ function UserProfile() {
                         height="340"
                         image={image ? URL.createObjectURL(image) : userInfo?.profilePhotoUrl}
                         alt="Image"
-                    />
+                        />
+                        <>
                     <CardContent>
                         <Typography gutterBottom variant="div" component="h3" style={{display:"flex", color: '#0a2540',justifyContent:"flex-start",alignItems:"flex-start" }}>
                             {userInfo?.name}
@@ -86,10 +95,14 @@ function UserProfile() {
                         <Typography variant="div" color="#0a2540" style={{ fontWeight: 'bold' }}>
                             {userInfo?.email}
                         </Typography>
-                    </CardContent>
+                          </CardContent>
+                        <Typography variant="div" color="#0a2540" style={{ fontWeight: 'bold' }}>
+                          College Name :  {userInfo?.college}
+                        </Typography>
+                      </>
                 </CardActionArea>
                 <div style={{display:'flex',width:'100%',maxWidth:'500px',paddingTop:'12px',justifyContent:'space-around'}}>
-                    <Button variant="contained" className='UserProfile__button' style={{margin:'0',width:"35%"}} fontSize="small" onClick={updateAccount}>Update</Button>
+                    <Button variant="contained" className='UserProfile__button' style={{margin:'0',width:"35%"}} fontSize="small" onClick={()=>history.push('/update')}>Update</Button>
                     <Button variant="outlined" fontSize="small" style={{margin:'0',width:"35%"}} onClick={() => {
                         if (user) {
                             auth.signOut().then(() => {

@@ -392,6 +392,7 @@ function ProfileCard({ data }) {
               <CardContent>
                 <Typography gutterBottom variant="div" component="div" style={{ color: '#0a2540', fontWeight: "bold", paddingBottom: '6px' }}>
                   {data?.data?.name}<br />
+                  {data?.data?.college}<br />
                 </Typography>
                 <div className="card__Button">
                   <button onClick={() => {

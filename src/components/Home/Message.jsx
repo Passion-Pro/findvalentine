@@ -12,9 +12,10 @@ function Message({message}) {
 
 
   useEffect(() => {
-    if(message?.email){
+    console.log("Email is" , message?.email)
+    if(message?.email !== userInfo?.email){
         db.collection(message?.gender === 'male' ? 'boys' : 'girls')
-            .where("email", "==", userInfo?.email)
+            .where("email", "==", message?.email)
             .get()
             .then((querySnapshot) => {
               querySnapshot.forEach((doc) => {
@@ -29,14 +30,16 @@ function Message({message}) {
               console.log("Error getting documents: ", error);
             });
     }
-  } , [message?.email])
+
+
+  } , [message?.email , userInfo?.email])
 
   return (
     <Container>
         <div className= {message?.email === user?.email ?'user_message':'message'}>
         <Avatar 
        className = "user_message_avatar"
-       src = {profilePhotoUrl}
+       src = {userInfo?.profilePhotoUrl}
        style = {{
           display :  message?.email !== user?.email && 'none',
           marginRight : '10px'
@@ -73,6 +76,10 @@ margin-left : auto;
 margin-right : 10px;
 justify-content : flex-end;
 
+@media(max-width : 500px){
+  width : 70%;
+}
+
 }
 
 .message{
@@ -83,7 +90,9 @@ width : 50%;
 margin-right : auto;
 margin-left : 10px;
 
-
+@media(max-width : 500px){
+  width : 70%;
+}
 }
 
 

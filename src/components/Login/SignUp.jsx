@@ -22,6 +22,7 @@ function SignUp() {
     const [verify, setVerify] = useState(false);
     const [loading, setLoading] = useState(false);
     const [runFunction, setRunFunction] = useState(false);
+    const [college, setCollege] = useState('');
     const history = useHistory();
 
     const selectImage = (e) => {
@@ -29,68 +30,66 @@ function SignUp() {
             setImage(e.target.files[0]);
         }
     }
-
+    console.log("first", user);
+    
     const createAccount = (e) => {
         setLoading(true);
-        if (name && email && password && gender && image) {
-            auth
-                .createUserWithEmailAndPassword(email, password)
-                .then((auth) => {
+        if (name && gender && image) {
+            // auth
+            // .createUserWithEmailAndPassword(email, password)
+            // .then((auth) => {
+            if (user?.uid && user?.email) {
+                const id = uuid();
+                const upload = storage.ref(`images`).child(id).put(image);
 
-                    if (auth) {
-                        dispatch({
-                            type: actionTypes.SET_USER,
-                            user: auth?.user,
-                        });
-                        const id = uuid();
-                        const upload = storage.ref(`images`).child(id).put(image);
+                upload.on(
+                    "state_changed",
+                    (snapshot) => {
+                        const progress =
+                            (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
 
-                        upload.on(
-                            "state_changed",
-                            (snapshot) => {
-                                const progress =
-                                    (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-
-                                console.log(`Progress : ${progress}%`);
-                                if (snapshot.state === "RUNNING") {
-                                    console.log(`Progress : ${progress}%`);
-                                }
-                            },
-                            (error) => console.log(error),
-                            async () => {
-                                await upload.snapshot.ref.getDownloadURL().then((url) => {
-                                    if (gender === 'male') {
-                                        db.collection('boys').doc(auth.user.uid).set({
-                                            name: name,
-                                            email: user?.email,
-                                            profilePhotoUrl: url,
-                                            gender: gender,
-                                            imageId: id,
-                                            timestamp: firebase.firestore.FieldValue.serverTimestamp(),
-                                            uid: auth.user.uid
-                                        })
-                                    }
-                                    else {
-                                        db.collection('girls').doc(auth.user.uid).set({
-                                            name: name,
-                                            email: user?.email,
-                                            profilePhotoUrl: url,
-                                            gender: gender,
-                                            imageId: id,
-                                            timestamp: firebase.firestore.FieldValue.serverTimestamp(),
-                                            uid: auth.user.uid
-                                        })
-                                    }
+                        console.log(`Progress : ${progress}%`);
+                        if (snapshot.state === "RUNNING") {
+                            console.log(`Progress : ${progress}%`);
+                        }
+                    },
+                    (error) => console.log(error),
+                    async () => {
+                        await upload.snapshot.ref.getDownloadURL().then((url) => {
+                            if (gender === 'male') {
+                                db.collection('boys').doc(user.uid).set({
+                                    name: name,
+                                    email: user?.email,
+                                    profilePhotoUrl: url,
+                                    gender: gender,
+                                    imageId: id,
+                                    timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+                                    uid: user.uid,
+                                    college: college,
                                 })
-                                    .then(() => {
-                                        history.push('/')
-                                    })
                             }
-                        )
-
+                            else {
+                                db.collection('girls').doc(user.uid).set({
+                                    name: name,
+                                    email: user?.email,
+                                    profilePhotoUrl: url,
+                                    gender: gender,
+                                    imageId: id,
+                                    timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+                                    uid: user.uid,
+                                    college: college,
+                                })
+                            }
+                        })
+                            .then(() => {
+                                history.push('/')
+                            })
                     }
-                })
-                .catch((error) => alert(error.message));
+                )
+
+            } else {
+                alert('Please login again to create profile!')
+            }
         } else {
             alert('Please fill all data and choose image.')
             setLoading(false);
@@ -127,15 +126,9 @@ function SignUp() {
                                 value={name}
                                 onChange={(e) => setName(e.target.value)}
                             />
-                            {/* <input type="text" placeholder='Enter Your Email Address'
-                                value={email}
-                                onChange={(e) => setEmail(e.target.value)}
-                            /> */}
-                            <input type="password" placeholder='Enter Your Password'
-                                value={password}
-                                onChange={(e) => {
-                                    setPassword(e.target.value)
-                                }}
+                            <input type="text" placeholder='Enter Your College Name'
+                                value={college}
+                                onChange={(e) => setCollege(e.target.value)}
                             />
                             <div className="gender_div">
                                 <span style={{ fontWeight: "bold" }}> You are</span>
@@ -162,10 +155,12 @@ function SignUp() {
                                 </div>
                             </div>
                             <div style={{ display: 'flex', flexDirection: 'column', width: '100%', maxWidth: '500px', justifyContent: 'space-around', alignItems: "center" }}>
-                                <Button variant="contained" style={{ width: '95%' }} onClick={createAccount}>Create Account</Button>
+                                <Button variant="contained" style={{ width: '95%' }} onClick={createAccount}>Add Details</Button>
                                 {/* <Button variant="contained" style={{ width: '45%' }} onClick={()=>"/signin"}>Sign in</Button> */}
                                 <div style={{ display: "flex", padding: '6px 0' }} onClick={() => history.push('/signin')}>
-                                    Already have account <div style={{ paddingLeft: '8px', color: "blue", fontWeight: '600', cursor: "pointer" }} >Sign in</div>
+                                    Enter details to complete profile.
+                                    <br />
+                                    Already entered <div style={{ paddingLeft: '8px', color: "blue", fontWeight: '600', cursor: "pointer" }} >Sign in</div>
                                 </div>
                             </div>
                         </div>
